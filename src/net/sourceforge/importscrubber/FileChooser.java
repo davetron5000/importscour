@@ -2,7 +2,9 @@ package net.sourceforge.importscrubber;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 // note: could have used threads rather than the iterator approach used here,
 // but that would have bought us nothing in the command line version (we don't WANT

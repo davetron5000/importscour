@@ -2,7 +2,10 @@ package net.sourceforge.importscrubber;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * This class encapsulates the source & class files

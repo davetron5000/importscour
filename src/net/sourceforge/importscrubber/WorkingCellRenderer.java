@@ -1,8 +1,11 @@
 package net.sourceforge.importscrubber;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 import java.awt.Component;
 import java.awt.Font;
-import javax.swing.*;
 
 /**
  * Encapsulates the appearance of an item in the file list.

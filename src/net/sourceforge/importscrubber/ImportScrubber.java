@@ -2,7 +2,10 @@ package net.sourceforge.importscrubber;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * This class encapsulates the import scrubber controller

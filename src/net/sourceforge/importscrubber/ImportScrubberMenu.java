@@ -1,9 +1,12 @@
 package net.sourceforge.importscrubber;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import javax.swing.*;
 
 /**
  * Encapsulates the ImportScrubber GUI menu.
