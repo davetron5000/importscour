@@ -58,7 +58,7 @@ public class ImportScrubberTask extends Task {
         }
 
         int formatIndex = StatementFormat.BREAK_NONE;
-        if (formatID.equals("each")) {
+        if (formatID != null && formatID.equals("each")) {
             formatIndex = StatementFormat.BREAK_EACH_PACKAGE;
         }
         File root = new File(rootString);
