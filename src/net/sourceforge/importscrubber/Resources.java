@@ -6,7 +6,7 @@ public class Resources extends ListResourceBundle
 {
     public static final String APP_NAME = "Importscrubber";
     public static final String FILE_BROWSER_TITLE = "Browse";
-    public static final String VERSION_ID = APP_NAME + " 1.4.2";
+    public static final String VERSION_ID = APP_NAME + " 1.4.3";
     public static final String BROWSE_LABEL = "Browse";
     public static final String GO_LABEL = "Go";
     public static final String FIND_FILES_LABEL = "Add files";
