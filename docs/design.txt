@@ -1,3 +1,6 @@
+12/3/02:
+Jonathan Ellis rewrote pretty much everything, so a lot of the pattern noise is out of there now.
+
 4/19/02:
 Neil Wrightman cleaned up the GUI, so now it is 1) prettier and 2) a lot more responsive!
 
