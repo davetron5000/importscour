@@ -10,7 +10,7 @@ import net.sourceforge.importscrubber.ImportScrubber;
 import net.sourceforge.importscrubber.JavaFileFilter;
 
 /**
- * Encapsulates a file chooser that recurses into subdirectories
+ * Encapsulates a file chooser that recurses in to subdirectories
  */
 public class RecursiveFileChooser implements IFileChooser
 {
