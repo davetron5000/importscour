@@ -5,17 +5,17 @@ import java.util.Properties;
 
 public class Settings
 {
-    private String _appName;
-    private Properties _props;
+    private String appName;
+    private Properties props;
 
     public Settings(String appName)
     {
-        _appName = appName;
+        this.appName = appName;
         File homeDir = new File(System.getProperty("user.home"));
         if(!homeDir.exists()) {
             homeDir.mkdirs();
         }
-        File appDir = new File(System.getProperty("user.home"), _appName);
+        File appDir = new File(System.getProperty("user.home"), this.appName);
         if(!appDir.exists()) {
             appDir.mkdir();
         }
@@ -24,31 +24,31 @@ public class Settings
 
     public void load()
     {
-        _props = new Properties();
+        props = new Properties();
         try {
-            File appDir = new File(System.getProperty("user.home"), _appName);
-            BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(appDir, _appName)));
-            _props.load(in);
+            File appDir = new File(System.getProperty("user.home"), appName);
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(appDir, appName)));
+            props.load(in);
             in.close();
         } catch(Exception exception) { }
     }
 
     public void put(String pKey, String pValue)
     {
-        _props.put(pKey, pValue);
+        props.put(pKey, pValue);
     }
 
     public String get
         (String pKey)
     {
-        return _props.getProperty(pKey);
+        return props.getProperty(pKey);
     }
 
     public void save() throws IOException
     {
-        File appDir = new File(System.getProperty("user.home"), _appName);
-        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(appDir, _appName)));
-        _props.store(out, "Importscrubber");
+        File appDir = new File(System.getProperty("user.home"), appName);
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(appDir, appName)));
+        props.store(out, "Importscrubber");
         out.close();
     }
 

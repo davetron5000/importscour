@@ -1,7 +1,7 @@
 package net.sourceforge.importscrubber;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,28 +10,28 @@ import java.util.List;
 public class ImportStatements
 {
     public static final String MARKER = "import";
-    private ArrayList _stmts = new ArrayList();
+    private List stmts = new ArrayList();
 
     public void add(String candidateString)
     {
 		ImportStatement candidate = new ImportStatement(candidateString);
-		if(candidate.getPackage() == null || _stmts.contains(candidate)) {
+		if(candidate.getPackage() == null || stmts.contains(candidate)) {
 			if (ImportScrubber.DEBUG)
 				System.out.println("not adding " + candidate.getFullyQualifiedClassName());
 			return;
 		}
 
-		_stmts.add(candidate);
+		stmts.add(candidate);
     }
 
     public StringBuffer getOutput(StatementFormat format)
     {
-        return format.applyFormat(_stmts);
+        return format.applyFormat(stmts);
     }
 
     public int getCount()
     {
-        return _stmts.size();
+        return stmts.size();
     }
 
     /**
@@ -39,7 +39,7 @@ public class ImportStatements
      */
     public void removeLocalToPackage(PackageStmt packageStmt)
     {
-        for (Iterator i = _stmts.iterator(); i.hasNext();) {
+        for (Iterator i = stmts.iterator(); i.hasNext();) {
             ImportStatement stmt = (ImportStatement)i.next();
             if (packageStmt.isInSamePackageAs(stmt)) {
                 if (ImportScrubber.DEBUG)
@@ -52,7 +52,7 @@ public class ImportStatements
 	public void removeInnerClasses(String className) {
 		if (ImportScrubber.DEBUG)
 			System.out.println("Looking for inner classes of " + className);
-        for (Iterator i = _stmts.iterator(); i.hasNext();) {
+        for (Iterator i = stmts.iterator(); i.hasNext();) {
             ImportStatement stmt = (ImportStatement)i.next();
             if (stmt.getFullyQualifiedClassName().startsWith(className + ".")) {
                 if (ImportScrubber.DEBUG)
@@ -69,7 +69,7 @@ public class ImportStatements
      */
     public String removeUnreferenced(String classBody)
     {
-        for (Iterator i = _stmts.iterator(); i.hasNext();) {
+        for (Iterator i = stmts.iterator(); i.hasNext();) {
             ImportStatement stmt = (ImportStatement)i.next();
             // is that class name mentioned somewhere in the class?
             if (classBody.indexOf(stmt.getClassName()) == -1) {
@@ -103,7 +103,7 @@ public class ImportStatements
                 if (bareClass) {
                     if (ImportScrubber.DEBUG)
                         System.out.println("Bare class also found");
-                    for (Iterator k = _stmts.iterator(); k.hasNext(); ) {
+                    for (Iterator k = stmts.iterator(); k.hasNext(); ) {
                         ImportStatement s2 = (ImportStatement)k.next();
                         if (s2 != stmt && stmt.getClassName().compareTo(s2.getClassName()) == 0) {
                             return "ambiguous use of " + stmt.getClassName() + "."

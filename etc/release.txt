@@ -1,13 +1,13 @@
 Update the release date in the changelog
 
-ant jar
+ant release
 
 cvs -q rtag -D tomorrow "release_1_4_3" importscrubber
 
 rmdir /q /s c:\tmp\importscrubber
 mkdir c:\tmp\importscrubber
 cvs -q export -d c:\tmp\importscrubber -r release_1_4_3 importscrubber
-copy importscrubber\lib\importscrubber.jar c:\tmp\importscrubber\lib
+copy lib\importscrubber.jar c:\tmp\importscrubber\lib
 copy the docs directory over to c:\tmp\importscrubber -- how to do this on cmd line?
 zip it up, rename it to importscrubber-1.4.3.zip
 

@@ -7,7 +7,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 
 public class ImportScrubberGUI implements IProgressMonitor, ActionListener
 {
@@ -21,7 +20,7 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener
     private ImportScrubber scrubber;
     private JComboBox formats;
     private ImportScrubberMenu menu;
-    private Settings settings;
+    private Settings settings = new Settings("importscrubber");
     private JButton goButton;
     private JButton addFilesButton, clearFilesButton;
     JTextField thresholdField = new JTextField(2);
@@ -29,8 +28,6 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener
 
     public ImportScrubberGUI()
     {
-        settings = new Settings("importscrubber");
-
         ResourceBundle res = ResourceBundle.getBundle("net.sourceforge.importscrubber.Resources");
 
         mainFrame = new JFrame(res.getString(Resources.VERSION_ID));
@@ -364,7 +361,7 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener
 
     public static void main(String[] args)
     {
-        ImportScrubberGUI gui = new ImportScrubberGUI();
+        new ImportScrubberGUI();
     }
 
     private class BrowseButton extends JButton
@@ -402,8 +399,8 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener
 
     private class UniqueListModel extends DefaultListModel
     {
-        private HashMap contents = new HashMap(1000);
-        private Boolean t = new Boolean(true);
+        private Map contents = new HashMap(1000);
+        private Boolean t = Boolean.TRUE;
 
         public UniqueListModel()
         {
