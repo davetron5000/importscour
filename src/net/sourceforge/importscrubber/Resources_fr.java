@@ -30,7 +30,7 @@ public class Resources_fr extends Resources
 
                 {APP_NAME, "Nettoyeur d'imports"},
 
-                {HELP_MESSAGE, "                     Nettoyeur d'imports" + ImportScrubber.LINE_SEPARATOR +  "C'est un utilitaire pour nettoyer les imports. Pour l'utiliser:" + ImportScrubber.LINE_SEPARATOR +  "1) S'assurer que les fichiers sources et les fichiers binaires (.class) sont dans le même répertoire. " + ImportScrubber.LINE_SEPARATOR +  "2) Sélectionner le fichier contenant du source" + ImportScrubber.LINE_SEPARATOR +  "3) Cliquer sur \"Trouver les fichiers\"" + ImportScrubber.LINE_SEPARATOR +  "4) Cliquer sur \"Exécuter\"" + ImportScrubber.LINE_SEPARATOR +  " Nettoyeur d'imports va mouliner pour quelques secondes et montrer un dialogue pour dire que c'est terminé." + ImportScrubber.LINE_SEPARATOR +  " Pour traiter plusieurs fichiers, simplement sélectionner un répertoire et cocher le choix \"Récursivement\"." + ImportScrubber.LINE_SEPARATOR +  "Questions? Commentaires? Contacter tomcopeland@users.sourceforge.net"},
+                {HELP_MESSAGE, "                     Nettoyeur d'imports\nC'est un utilitaire pour nettoyer les imports. Pour l'utiliser:\n1) S'assurer que les fichiers sources et les fichiers binaires (.class) sont dans le même répertoire. \n2) Sélectionner le fichier contenant du source\n3) Cliquer sur \"Trouver les fichiers\"\n4) Cliquer sur \"Exécuter\"\n Nettoyeur d'imports va mouliner pour quelques secondes et montrer un dialogue pour dire que c'est terminé.\n Pour traiter plusieurs fichiers, simplement sélectionner un répertoire et cocher le choix \"Récursivement\".\nQuestions? Commentaires? Contacter tomcopeland@users.sourceforge.net"},
 
                 {BREAK_EACH_PACKAGE, "Stopper pour chaque package"},
 

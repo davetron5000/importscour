@@ -32,10 +32,10 @@ public class StatementFormat
     // get a description of args understood by getFormat
     public static String getUsage()
     {
-        return "-sortJavaLibsHigh: place 'import java...' statements at the top [default: off]" + ImportScrubber.LINE_SEPARATOR +  ""
-               + "-combineThreshold <integer>: import * from a package when MORE THAN this number of imports are found [default: 0 = off]" + ImportScrubber.LINE_SEPARATOR
-               + "-thresholdStandardOnly: apply combineThreshold only to java standard library; other packages will continue to import individual classes no matter how many are used [default: off]" + ImportScrubber.LINE_SEPARATOR
-               + "-breakEachPackage: linebreak after the imports from each package [default: off]" + ImportScrubber.LINE_SEPARATOR ;
+        return "-sortJavaLibsHigh: place 'import java...' statements at the top [default: off]\n"
+               + "-combineThreshold <integer>: import * from a package when MORE THAN this number of imports are found [default: 0 = off]\n"
+               + "-thresholdStandardOnly: apply combineThreshold only to java standard library; other packages will continue to import individual classes no matter how many are used [default: off]\n"
+               + "-breakEachPackage: linebreak after the imports from each package [default: off]\n";
     }
 
     // arg parsing done here to make it easier for others to add new features

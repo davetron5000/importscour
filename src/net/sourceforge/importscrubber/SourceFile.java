@@ -123,7 +123,7 @@ public class SourceFile
 
 		// we don't overwrite when DEBUG is on
         if (ImportScrubber.DEBUG) {
-            System.out.println("Imports remaining:" + ImportScrubber.LINE_SEPARATOR  + _imports.getOutput(format));
+            System.out.println("Imports remaining:\n" + _imports.getOutput(format));
         } else {
             // push everything together
             StringBuffer finishedSource = new StringBuffer((int)(_classBody.length() * 1.1));
