@@ -1,0 +1,94 @@
+March 11 2002 - 1.4.1:
+Fixed bug which I introduced in v1.4.0 - the import keyword and type were crammed together. Thanks to Markus Crafter for catching this.
+
+March 08 2002 - 1.4.0:
+Moved the "put Java libraries at the top" to a menu option.
+Modified source code parser to look for the import keyword rather than the import keyword followed by a space.  Thanks to Marcus Crafter for the suggestion.
+Added a Unix go.sh - thanks to Markus Crafter for the script.
+Modified to use the latest BCEL release (5.0 rc1).
+Modified to remember what directory you used last.  Thanks to several folks for this suggestion.
+
+November 27 2001 - 1.3.9:
+Added French translation; thanks to Olivier.
+Added "put Java libraries at the top" option; thanks to Martin Saxer for the code.
+Added check for fully qualified class names; thanks to Mark Langley for the suggestion.
+
+November 5 2001 - 1.3.8:
+Fixed bug that would skip imports if only a static method was called on a class.
+
+October 24 2001 - 1.3.7:
+Rewrote part of class file analysis code to exclude ConstantUtf8s which are referred to by ConstantStrings.  Thanks to Marcus Dahm for his help on this.
+
+October 22 2001 - 1.3.6:
+Tweaked copyright header preservation thing to remove errant blank line.
+
+October 22 2001 - 1.3.5:
+Modified copyright header preservation thing to allow copyright header in a different area.
+Moved Ant task to net.sourceforge.importscrubber.ant package
+
+September 25 2001 - 1.3.4: 
+Added copyright header comment preservation - thanks to Scott Willy and Trent Hoeppner for the suggestion
+
+September 18 2001 - 1.3.3: 
+Added Scott Willy's DualRootSingleFileChooser
+
+September 11 2001 - 1.3.2:
+Added formatting options
+
+August 17 2001 - 1.3.1:
+Added an Ant task, see build.xml for sample usage.
+Fixed a bug in go.bat - thanks to Trent Hoeppner.
+Fixed a bug in build.xml - thanks to Trent Hoeppner.
+
+August 10 2001 - 1.3:
+Reworked the bytecode parser interactions to use the BCEL Visitor framework.  Thanks to Markus Dahm and Uwe Hoffman for their suggestions and assistance.
+Added a command line interface which is much faster when processing a lot of files.
+
+July 26 2001 - 1.2.2:
+Updated package break logic (thanks to Walton Channing for the code).
+File browser now opens to user's home directory.
+
+July 20 2001 - 1.2.1:
+Fixed bug which was creating a bunch of erroneous imports.
+
+July 15 2001 - 1.2:
+Implemented package separation feature suggested by Paul Holser.
+
+June 29 2001 - 1.1.9:
+Minor performance enhancements, fixed bug which allowed java.lang imports to be included.
+
+June 25 2001 - 1.1.8: 
+Fixed bug which messed up imports when a Class object was referenced only as a method parameter, i.e., List.add(Foo.class).
+
+June 20 2001 - 1.1.7:
+Fixed bug which messed up imports from java.lang subpackages (thanks to Paul Holser for finding this).
+
+June 20 2001 - 1.1.6:
+Fixed bug which messed up imports of static inner classes.
+Walton Channing fine-tuned the import package separation feature.
+
+June 18 2001 - 1.1.5:
+Minor refactoring - replaced a FileWriter with BufferedWriter, using List rather than ArrayList, etc.
+
+June 13 2001 - 1.1.4:
+Added separator between different package names, sort is now case insensitive (Walton Channing).
+
+June 6 2001 - 1.1.3:
+Fixed bug which interpreted any constant beginning with "/" as a class reference.
+
+June 1 2001 - 1.1.2:
+Replaced handcoded bubble sort with call to Collections.sort().
+
+May 30 2001 - 1.1.1:
+Fixed bug which in some situations included classes from java.lang.
+Added Javadoc generation to the build file.
+
+May 29 2001 - 1.1:
+Modified to use BCEL.
+
+May 25 2001 - 1.0.1:
+Removed some unnecessary threading.
+Added a menu and some help text.
+
+May 24 2001 - 1.0:
+Released 1.0

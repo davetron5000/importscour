@@ -1,0 +1,15 @@
+11/26/01:
+It's cleaned up a bit now.  PackageStmt is probably a good next target to clean.  The GUI sure is ugly, though.
+
+10/22/01:
+Now the source code parsing stuff is in dire need of refactoring.
+
+9/11/01:
+Broke classes out into several packages, which reduces the clutter somewhat.  Added more unit tests.
+
+8/9/01:
+The GUI is much better now, too.  But it could still use some work - maybe I could turn it into a wizard?  It does seem to have a pretty clear sequence of steps - set root, select files, process them, show results.
+The parsing code is a little nicer now that it uses Visitor.  It's still pretty heinous, though.
+
+5/24/01:
+It could use some work.  Especially the GUI.  And the parsing code is nasty too.  The one redeeming feature - it works.
