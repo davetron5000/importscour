@@ -1,3 +1,14 @@
+April 19 2002 - 1.4.2:
+Added contributions from Neil Wrightman:
++layout changes  
++GoCommand and FindCommand threaded
++UI refreshes cleaned up
++All options saved cleanly
++Removed ListRenderer
++Go button disabled until files have been found.
++All Done message now says how many files were processed
+Added check for "val." imports; thanks to Roedy Green for catching this.
+
 March 11 2002 - 1.4.1:
 Fixed bug which I introduced in v1.4.0 - the import keyword and type were crammed together. Thanks to Marcus Crafter for catching this.
 
