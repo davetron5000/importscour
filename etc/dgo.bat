@@ -2,4 +2,4 @@
 
 SET MAIN=net.sourceforge.importscrubber.ImportScrubberGUI
 
-java -cp %CLASSPATH%;..\src;..\lib\bcel.jar %MAIN%
+java -cp %CLASSPATH%;..\build;..\lib\bcel.jar %MAIN%
