@@ -107,8 +107,8 @@ public class ImportStatements
                         ImportStatement s2 = (ImportStatement)k.next();
                         if (s2 != stmt && stmt.getClassName().compareTo(s2.getClassName()) == 0) {
                             return "ambiguous use of " + stmt.getClassName() + "."
-                                   + "\n\t(" + stmt.getFullyQualifiedClassName() + " and " + s2.getFullyQualifiedClassName() + ")"
-                                   + "\n\tTo scrub, make all references fully qualified, or none.";
+                                   + ImportScrubber.LINE_SEPARATOR +  "\t(" + stmt.getFullyQualifiedClassName() + " and " + s2.getFullyQualifiedClassName() + ")"
+                                   + ImportScrubber.LINE_SEPARATOR +  "\tTo scrub, make all references fully qualified, or none.";
                         }
                     }
                     // loop finished so no ambiguity, the unqualified references all refer to this class.  leave the import in.

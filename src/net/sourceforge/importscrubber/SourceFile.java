@@ -1,13 +1,6 @@
 package net.sourceforge.importscrubber;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 
 /**
  * Encapsulates operations on the Java source code file
@@ -130,7 +123,7 @@ public class SourceFile
 
 		// we don't overwrite when DEBUG is on
         if (ImportScrubber.DEBUG) {
-            System.out.println("Imports remaining:\n" + _imports.getOutput(format));
+            System.out.println("Imports remaining:" + ImportScrubber.LINE_SEPARATOR  + _imports.getOutput(format));
         } else {
             // push everything together
             StringBuffer finishedSource = new StringBuffer((int)(_classBody.length() * 1.1));

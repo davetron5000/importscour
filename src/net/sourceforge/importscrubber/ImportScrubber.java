@@ -166,13 +166,13 @@ public class ImportScrubber
 
     private static void usage()
     {
-        System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber\n"
-                           + "-g\n"
-                           + "| -root <dir|file> [-classroot <dir>] [-recurse] [-encoding charsetname] [formatargs]\n"
-                           + "formatargs:\n"
+        System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber" + LINE_SEPARATOR
+                           + "-g" + LINE_SEPARATOR
+                           + "| -root <dir|file> [-classroot <dir>] [-recurse] [-encoding charsetname] [formatargs]" + LINE_SEPARATOR
+                           + "formatargs:" + LINE_SEPARATOR
                            + StatementFormat.getUsage());
         System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root /home/me/myproject/src -recurse");
-        System.out.println("\nOR, TO USE THE GUI:\n");
+        System.out.println(LINE_SEPARATOR + "OR, TO USE THE GUI:" + LINE_SEPARATOR);
         System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -g");
     }
 }
