@@ -5,7 +5,6 @@
 	<property name="buildDir" value="..\build\"/>
 	<property name="javadocDir" value="..\docs\javadoc"/>
 	<property name="jnlp_staging_area" value="c:\data\importscrubberjnlp\"/>
-   	<property name="build.compiler" value="jikes"/>
 
 	<target name="delete">
 		<delete dir="${buildDir}"/>
