@@ -1,5 +1,5 @@
 April 19 2002 - 1.4.2:
-Added contributions from Neil Wrightman:
+Added contributions from Neil Wightman:
 +layout changes  
 +GoCommand and FindCommand threaded
 +UI refreshes cleaned up
