@@ -245,6 +245,6 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener {
     // ITaskListener
 
     public static void main(String[] args) {
-        ImportScrubberGUI gui = new ImportScrubberGUI();
+        new ImportScrubberGUI();
     }
 }

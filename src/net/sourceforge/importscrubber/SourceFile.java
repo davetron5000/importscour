@@ -73,7 +73,7 @@ public class SourceFile {
 
     public void save(IStatementFormat format) throws IOException {
         _imports.removeUnreferenced(_classBody);
-        _imports.removeLocalToPackage(_package);        // push everything together        StringBuffer finishedSource = new StringBuffer((int) (_classBody.length() * 1.1));
+        _imports.removeLocalToPackage(_package);        // push everything together        StringBuffer finishedSource = new StringBuffer();
         finishedSource.append(_firstCommentHeader);
         finishedSource.append(_package.getOutput());
         finishedSource.append(removeMultipleBlankLines(_secondCommentHeader));

@@ -25,8 +25,6 @@ public class RecursiveFileChooser implements IFileChooser {
 
         File file = new File(root);
 
-        ResourceBundle res = ResourceBundle.getBundle("net.sourceforge.importscrubber.Resources");
-
         if (!file.isDirectory()) throw new IllegalArgumentException(Resources.ERR_NOT_DIR);
 
         if (!file.exists()) throw new IllegalArgumentException(Resources.ERR_DIR_NOT_EXIST);
