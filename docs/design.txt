@@ -1,3 +1,6 @@
+4/19/02:
+Neil Wrightman cleaned up the GUI, so now it is 1) prettier and 2) a lot more responsive!
+
 11/26/01:
 It's cleaned up a bit now.  PackageStmt is probably a good next target to clean.  The GUI sure is ugly, though.
 
