@@ -1,4 +1,6 @@
-??? ?? ???? 1.4.3:
+December 3 2002 - 1.4.3:
+Mostly rewritten thanks to Jonathan Ellis.
++added support for a sepa
 Added -encoding attribute thanks to Toshiyuki Iwata.
 
 April 19 2002 - 1.4.2:

@@ -18,7 +18,7 @@ public class Resources extends ListResourceBundle
     public static final String OPTIONS_LABEL = "Options";
     public static final String RECURSE_LABEL = "Recurse";
     public static final String EXIT_LABEL = "Exit";
-    public static final String HELP_MESSAGE = "                     " + APP_NAME + "\nThis is a utility to clean up import statements.  To use it:\n1) Make sure your Java source code file and class file are in the same directory\n2) Select your source code file\n3) Click \"Find files\"\n4) Click \"Go\"\nImportscrubber will crank away for a few seconds and then pop up a box telling you it's done.\nTo process multiple files, just pick a directory and toggle the \"recursive\" checkbox\nQuestions? Comments? Contact tomcopeland@users.sourceforge.net";
+    public static final String HELP_MESSAGE = "                     " + APP_NAME + "\nThis is a utility to clean up import statements.  To use it:\n1) 1) Select your source code and class file directories \n2) Click \"Add files\"\n3) Pick any other options\n4) Click \"Go\"\nImportscrubber will crank away for a few seconds and then pop up a box telling you it's done.\nTo process multiple files, just pick a directory and toggle the \"recursive\" checkbox\nQuestions? Comments? Post them here - http://sourceforge.net/forum/forum.php?forum_id=60067";
     public static final String BREAK_EACH_PACKAGE = "Break for each package";
     public static final String BREAK_NONE = "No breaks";
 
