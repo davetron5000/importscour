@@ -4,7 +4,7 @@ public class Resources_fr extends Resources
 {
    private static final Object[][] contents = {
       {FILE_BROWSER_TITLE, "Note: les fichiers binaires (.class) et les fichiers sources doivent être dans le même répertoire"},
-      {VERSION_ID, "Nettoyeur d'imports 1.3.9"},
+      {VERSION_ID, "Nettoyeur d'imports 1.4.2"},
       {BROWSE_LABEL, "Naviguer"},
       {GO_LABEL, "Aller"},
       {HELP_LABEL, "Aide"},
