@@ -55,6 +55,23 @@
 			recurse="false"/>
 	</target>
 
+	<target name="test">
+		<junit printsummary="yes" haltonfailure="no">
+			<classpath>
+				<pathelement location="${buildDir}"/>
+				<fileset dir="${libDir}\">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+			<formatter type="xml" />
+			<batchtest fork="no" todir="${buildDir}">
+				<fileset dir="${sourceDir}">
+					<include name="**/*Test.java"/>
+				</fileset>
+		</batchtest>
+		</junit>
+	</target>
+
 
 	<target name="all" depends="clean,compile">
 		<javadoc
