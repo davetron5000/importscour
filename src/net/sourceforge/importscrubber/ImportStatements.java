@@ -1,8 +1,126 @@
-package net.sourceforge.importscrubber;import java.util.ArrayList;import java.util.Collections;import java.util.Iterator;import java.util.List;import net.sourceforge.importscrubber.format.IStatementFormat;/**
+package net.sourceforge.importscrubber;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
  * Encapsulates various operations on a class' import statements
- */public class ImportStatements {    public static final String MARKER = "import";    private List _stmts = new ArrayList();    public void add(String candidateString) {        ImportStatement candidateImport = new ImportStatement(candidateString);        if (candidateImport.isInDefaultPackage() ||                 _stmts.contains(candidateImport)) {            return;        }        _stmts.add(candidateImport);    }    public StringBuffer getOutput(IStatementFormat format) {        Collections.sort(_stmts,                          new ImportStatementComparator(                                 format.sortJavaLibsHigh()));        return format.applyFormat(_stmts.iterator());    }    public int getCount() {        return _stmts.size();    }    /**        
- * Remove imports for classes in the same package as the current class        
- */    public void removeLocalToPackage(PackageStmt packageStmt) {        for (Iterator i = _stmts.iterator(); i.hasNext();) {            if (packageStmt.isInSamePackageAs((ImportStatement) i.next())) {                i.remove();            }        }    }    /**        
- * Remove those imports which appear in the class file        
- * byte code but are not directly referenced in the source code        
- */    public void removeUnreferenced(String classBody) {        for (Iterator i = _stmts.iterator(); i.hasNext();) {            ImportStatement importStmt = (ImportStatement) i.next();            // is that class name mentioned somewhere in the class?            if (classBody.indexOf(importStmt.getClassName()) == -1) {                // nope, so remove it                if (ImportScrubber.DEBUG) {                    System.out.println("Removing unreferenced import:" +                                        importStmt.getClassName());                }                i.remove();            }        }        for (Iterator i = _stmts.iterator(); i.hasNext();) {            ImportStatement importStmt = (ImportStatement) i.next();            // is that class used as a fully qualified name in the class body somewhere?            if (classBody.indexOf(importStmt.getFullyQualifiedClassName()) != -1) {                // nope, so remove it                if (ImportScrubber.DEBUG) {                    System.out.println("Removing fully qualified import:" +                                        importStmt.getClassName());                }                i.remove();            }        }    }}
+ */
+public class ImportStatements
+{
+    public static final String MARKER = "import";
+    private ArrayList _stmts = new ArrayList();
+
+    public void add(String candidateString)
+    {
+		ImportStatement candidate = new ImportStatement(candidateString);
+		if(candidate.getPackage() == null || _stmts.contains(candidate)) {
+			if (ImportScrubber.DEBUG)
+				System.out.println("not adding " + candidate.getFullyQualifiedClassName());
+			return;
+		}
+
+		_stmts.add(candidate);
+    }
+
+    public StringBuffer getOutput(StatementFormat format)
+    {
+        return format.applyFormat(_stmts);
+    }
+
+    public int getCount()
+    {
+        return _stmts.size();
+    }
+
+    /**
+     * Remove imports for classes in the same package as the current class
+     */
+    public void removeLocalToPackage(PackageStmt packageStmt)
+    {
+        for (Iterator i = _stmts.iterator(); i.hasNext();) {
+            ImportStatement stmt = (ImportStatement)i.next();
+            if (packageStmt.isInSamePackageAs(stmt)) {
+                if (ImportScrubber.DEBUG)
+                    System.out.println("Removing local import:" + stmt.getClassName());
+                i.remove();
+            }
+        }
+    }
+
+	public void removeInnerClasses(String className) {
+		if (ImportScrubber.DEBUG)
+			System.out.println("Looking for inner classes of " + className);
+        for (Iterator i = _stmts.iterator(); i.hasNext();) {
+            ImportStatement stmt = (ImportStatement)i.next();
+            if (stmt.getFullyQualifiedClassName().startsWith(className + ".")) {
+                if (ImportScrubber.DEBUG)
+                    System.out.println("Removing inner class import:" + stmt.getClassName());
+                i.remove();
+            }
+        }
+	}
+
+    /**
+     * Remove those imports which appear in the class file 
+     * byte code but are not directly referenced in the source code
+    * returns non-null on error condition.
+     */
+    public String removeUnreferenced(String classBody)
+    {
+        for (Iterator i = _stmts.iterator(); i.hasNext();) {
+            ImportStatement stmt = (ImportStatement)i.next();
+            // is that class name mentioned somewhere in the class?
+            if (classBody.indexOf(stmt.getClassName()) == -1) {
+                // nope, so remove it
+                if (ImportScrubber.DEBUG)
+                    System.out.println("Removing unreferenced import:" + stmt.getClassName());
+                i.remove();
+                continue;
+            }
+
+            // is that class used as a fully qualified name in the class body somewhere?
+            int j = classBody.indexOf(stmt.getFullyQualifiedClassName());
+            if (j != -1) {
+                if (ImportScrubber.DEBUG)
+                    System.out.println("FQ class found:" + stmt.getClassName());
+                boolean bareClass = false;
+                while (j != -1) {
+                    if (classBody.charAt(j - 1) != '.') {
+                        bareClass = true;
+                        break;
+                    }
+                    j = classBody.indexOf(stmt.getFullyQualifiedClassName(), j + 1);
+                }
+                // if also used as bare class, check to see if leaving import in makes things ambiguous:
+                // if multiple classes w/ the same name are used, we bail.
+                // (for example, say java.util.Date and java.sql.Date are both specified as FQ classnames.
+                //  but user has imported java.util.Date, and uses unqualified Date too.
+                //  we can't tell which import to leave out w/o additional parsing of classBody.  Which
+                //  is doable, but I'm considering this rare enough to not be worth the effort, and
+                //  I'll settle for just being sure not to break things.)
+                if (bareClass) {
+                    if (ImportScrubber.DEBUG)
+                        System.out.println("Bare class also found");
+                    for (Iterator k = _stmts.iterator(); k.hasNext(); ) {
+                        ImportStatement s2 = (ImportStatement)k.next();
+                        if (s2 != stmt && stmt.getClassName().compareTo(s2.getClassName()) == 0) {
+                            return "ambiguous use of " + stmt.getClassName() + "."
+                                   + "\n\t(" + stmt.getFullyQualifiedClassName() + " and " + s2.getFullyQualifiedClassName() + ")"
+                                   + "\n\tTo scrub, make all references fully qualified, or none.";
+                        }
+                    }
+                    // loop finished so no ambiguity, the unqualified references all refer to this class.  leave the import in.
+                } else {
+                    if (ImportScrubber.DEBUG)
+                        System.out.println("No bare class found; removing");
+                    i.remove();
+                }
+            }
+        }
+
+        return null; // no error
+    }
+}
+
