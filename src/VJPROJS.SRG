@@ -1,0 +1,5 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\6.0]
+"DefaultProjectTreeSelection"="Applications"
+"DefaultProjectListSelection"="Windows Application"
+"DefaultProjItemTreeSelection"="Form"
+"DefaultProjItemListSelection"="Form"

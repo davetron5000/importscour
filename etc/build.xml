@@ -1,0 +1,23 @@
+<project name="importscrubber" default="all" basedir=".">
+
+	<property name="rootDir" value="..\"/>
+	<property name="libDir" value="..\lib\"/>
+	<property name="sourceDir" value="..\src"/>
+	<property name="buildDir" value="..\build\"/>
+
+	<target name="clean">
+	      <delete>
+			<fileset dir="${sourceDir}" includes="**/*.class"/>
+		</delete>
+		<delete file="${buildDir}importscrubber.jar"/>
+	</target>
+
+	<target name="compile" depends="clean">
+	      <javac deprecation="false" debug="true" optimize="false" srcdir="${sourceDir}" classpath="${libDir}cfparse.jar"/>
+	</target>
+
+	<target name="all" depends="compile">
+		<jar jarfile="${buildDir}importscrubber.jar" basedir="${sourceDir}" excludes="**.dat,**.sln,**.suo,**.vjp,**.srg,**.SRG"/>
+	</target>
+
+</project>
