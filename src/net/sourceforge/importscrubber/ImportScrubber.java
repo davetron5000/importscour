@@ -1,31 +1,15 @@
 package net.sourceforge.importscrubber;
 
 
-
-import java.io.File;
-
-import java.io.IOException;
-
-import java.util.ArrayList;
-
-import java.util.List;
-
-import java.util.ListIterator;
-
-import net.sourceforge.importscrubber.filechooser.AllInDirectoryFileChooser;
-
-import net.sourceforge.importscrubber.filechooser.DualRootSingleFileChooser;
-
-import net.sourceforge.importscrubber.filechooser.IFileChooser;
-
-import net.sourceforge.importscrubber.filechooser.RecursiveFileChooser;
-
-import net.sourceforge.importscrubber.filechooser.SingleFileChooser;
-
+import net.sourceforge.importscrubber.filechooser.*;
 import net.sourceforge.importscrubber.format.IStatementFormat;
-
 import net.sourceforge.importscrubber.format.StatementFormatFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 
 /**
@@ -34,330 +18,274 @@ import net.sourceforge.importscrubber.format.StatementFormatFactory;
 
  */
 
-public class ImportScrubber
+public class ImportScrubber {
 
-{
+    public static final String START_DIRECTORY_KEY = "importscrubber.startDir";
 
-   public static final String START_DIRECTORY_KEY = "importscrubber.startDir";
-   
-   public static final String RECURSE = "importscrubber.recurse";
+    public static final String RECURSE = "importscrubber.recurse";
 
-   public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+    public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
-   public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
-   public static boolean DEBUG = false;
+    public static boolean DEBUG = false;
 
-   private IFileChooser _fileChooser;
+    private IFileChooser _fileChooser;
 
-   private List _tasks = new ArrayList();
+    private List _tasks = new ArrayList();
 
-   private IStatementFormat _format;
+    private IStatementFormat _format;
 
 
+    public void setFileRoot(String filename, boolean recurse) {
 
-   public void setFileRoot(String filename, boolean recurse)
+        File file = new File(filename);
 
-   {
+        if (file.isDirectory()) {
 
-      File file = new File(filename);
+            if (recurse) {
 
-      if (file.isDirectory())
+                _fileChooser = new RecursiveFileChooser();
 
-      {
+            } else {
 
-         if (recurse)
+                _fileChooser = new AllInDirectoryFileChooser();
 
-         {
+            }
 
-            _fileChooser = new RecursiveFileChooser();
+        } else {
 
-         }
+            _fileChooser = new SingleFileChooser();
 
-         else
+        }
 
-         {
+        _fileChooser.setRoot(filename);
 
-            _fileChooser = new AllInDirectoryFileChooser();
+    }
 
-         }
 
-      }
+    public void setFileRoot(String sourceRoot, String classRoot, String fileName) {
 
-      else
+        _fileChooser = new DualRootSingleFileChooser(sourceRoot, classRoot, fileName);
 
-      {
+    }
 
-         _fileChooser = new SingleFileChooser();
 
-      }
+    public void setFormat(IStatementFormat format) {
 
-      _fileChooser.setRoot(filename);
+        _format = format;
 
-   }
+    }
 
 
+    public void debugOff() {
 
-   public void setFileRoot(String sourceRoot, String classRoot, String fileName)
+        DEBUG = false;
 
-   {
+    }
 
-      _fileChooser = new DualRootSingleFileChooser(sourceRoot, classRoot, fileName);
 
-   }
+    public void debug() {
 
-   
+        DEBUG = true;
 
-   public void setFormat(IStatementFormat format) {
+    }
 
-      _format = format;
 
-   }
+    public int getTaskCount() {
 
+        return _tasks.size();
 
+    }
 
-   public void debugOff() {
 
-      DEBUG = false;
+    public List getFiles() {
 
-   }
+        return _fileChooser.getFiles();
 
+    }
 
 
-   public void debug() {
+    // Returns number of files to work on, allows getFiles to be called just once.
+    public int buildTasks() throws IOException {
 
-      DEBUG = true;
+        List list = _fileChooser.getFiles();
 
-   }
+        for (ListIterator iter = list.listIterator(); iter.hasNext();) {
 
+            FilePair pair = (FilePair) iter.next();
 
+            _tasks.add(new ScrubTask(pair, _format));
 
-   public int getTaskCount() {
+        }
 
-      return _tasks.size();
+        return list.size();
 
-   }
+    }
 
 
+    public void runTasks(IProgressMonitor monitor) throws IOException {
 
-   public List getFiles() {
+        for (ListIterator iter = _tasks.listIterator(); iter.hasNext();) {
 
-      return _fileChooser.getFiles();
+            ScrubTask task = (ScrubTask) iter.next();
 
-   }
+            monitor.taskStarted(task);
 
+            task.run();
 
+            monitor.taskComplete(task);
 
-   // Returns number of files to work on, allows getFiles to be called just once.
-   public int buildTasks() throws IOException {
+        }
 
-      List list = _fileChooser.getFiles();
+        _tasks.clear();
 
-      for (ListIterator iter = list.listIterator(); iter.hasNext();)
+    }
 
-      {
 
-         FilePair pair = (FilePair)iter.next();
+    public static void main(String[] args) {
 
-         _tasks.add(new ScrubTask(pair, _format));
+        if (argExists("g", args)) {
 
-      }
+            ImportScrubberGUI gui = new ImportScrubberGUI();
 
-      return list.size();
-      
-   }
+            return;
 
+        }
 
+        if (!argExists("root", args)) {
 
-   public void runTasks(IProgressMonitor monitor) throws IOException {
+            usage();
 
-      for (ListIterator iter = _tasks.listIterator(); iter.hasNext();)
+            System.exit(0);
 
-      {
+        }
 
-         ScrubTask task = (ScrubTask)iter.next();
+        String root = findArg("root", args);
 
-         monitor.taskStarted(task);
+        if (!(new File(root).exists())) {
 
-         task.run();
+            System.out.println("Root: " + root + " does not exist");
 
-         monitor.taskComplete(task);
+            usage();
 
-      }
+            System.exit(0);
 
-      _tasks.clear();
+        }
 
-   }
+        boolean recurse = argExists("recurse", args);
 
+        IStatementFormat format = null;
 
+        if (!argExists("format", args)) {
 
-   public static void main(String[] args)
+            format = StatementFormatFactory.getInstance().createStatementFormat(StatementFormatFactory.DEFAULT);
 
-   {
+        } else {
 
-      if (argExists("g",args))
+            format = StatementFormatFactory.getInstance().createStatementFormat(findArg("format", args));
 
-      {
+        }
 
-         ImportScrubberGUI gui = new ImportScrubberGUI();
+        format.sortJavaLibsHigh(argExists("sortjavalibshigh", args));
 
-         return;
 
-      }
+        try {
 
-      if (!argExists("root", args))
+            ImportScrubber scrubber = new ImportScrubber();
 
-      {
 
-         usage();
+            if (argExists("classesRoot", args)) {
 
-         System.exit(0);
+                String sourcesRootStr = findArg("sourcesRoot", args);
 
-      }
+                String classesRootStr = findArg("classesRoot", args);
 
-      String root = findArg("root",args);
+                String sourceFilenameStr = root;
 
-      if (!(new File(root).exists()))
+                scrubber.setFileRoot(sourcesRootStr, classesRootStr, sourceFilenameStr);
 
-      {
+            } else {
 
-         System.out.println("Root: " + root + " does not exist");
+                scrubber.setFileRoot(root, recurse);
 
-         usage();
+            }
 
-         System.exit(0);
 
-      }
+            scrubber.setFormat(format);
 
-      boolean recurse = argExists("recurse", args);
+            System.out.println("Building file list");
 
-      IStatementFormat format = null;
+            List files = scrubber.getFiles();
 
-      if (!argExists("format", args)) {
+            System.out.println("Building tasks");
 
-         format = StatementFormatFactory.getInstance().createStatementFormat(StatementFormatFactory.DEFAULT);
+            scrubber.buildTasks();
 
-      } else {
+            System.out.println("Processing " + files.size() + " files");
 
-         format = StatementFormatFactory.getInstance().createStatementFormat(findArg("format",args));
+            scrubber.runTasks(new ConsoleProgressMonitor());
 
-      }
+            System.out.println(LINE_SEPARATOR + "All done!");
 
-      format.sortJavaLibsHigh(argExists("sortjavalibshigh", args));
+        } catch (Exception e) {
 
+            e.printStackTrace();
 
+        }
 
-      try {
+    }
 
-         ImportScrubber scrubber = new ImportScrubber();
 
-         
+    private static boolean argExists(String argFlag, String[] args) {
 
-         if(argExists("classesRoot", args) )
+        for (int i = 0; i < args.length; i++) {
 
-         {
+            if (args[i].equals("-" + argFlag)) {
 
-           String sourcesRootStr = findArg( "sourcesRoot", args );
+                return true;
 
-           String classesRootStr= findArg( "classesRoot", args );
+            }
 
-           String sourceFilenameStr = root;
+        }
 
-           scrubber.setFileRoot(sourcesRootStr, classesRootStr, sourceFilenameStr); 
+        return false;
 
-         }  else
+    }
 
-         {
 
-            scrubber.setFileRoot(root, recurse);
+    private static String findArg(String argFlag, String[] args) {
 
-         }
+        for (int i = 0; i < args.length; i++) {
 
+            if (args[i].equals("-" + argFlag)) {
 
+                return args[i + 1];
 
-         scrubber.setFormat(format);
+            }
 
-         System.out.println("Building file list");
+        }
 
-         List files = scrubber.getFiles();
+        throw new IllegalArgumentException("Couldn't find " + argFlag);
 
-         System.out.println("Building tasks");
+    }
 
-         scrubber.buildTasks();
 
-         System.out.println("Processing " + files.size() + " files");
+    private static void usage() {
 
-         scrubber.runTasks(new ConsoleProgressMonitor());
+        System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber -root [rootDir | file] [-recurse] [-format each|top|nobreaks] [-g]");
 
-         System.out.println(LINE_SEPARATOR + "All done!");
+        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root /home/me/myproject/src -recurse -format nobreaks -sortjavalibshigh");
 
-      } catch (Exception e) {
+        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root d:\\project\\src\\Foo.java");
 
-         e.printStackTrace();
+        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root d:\\importscrubber\\etc\\FunctionalTest.java -classesRoot d:\\importscrubber\\build -sourcesRoot d:\\importscrubber\\etc\\ ");
 
-      }
+        System.out.println("\r\nOR, TO USE THE GUI:\r\n");
 
-   }
+        System.out.println("java net.sourceforge.importscrubber.ImportScrubber -g");
 
-   
-
-   private static boolean argExists(String argFlag, String[] args)
-
-   {
-
-      for (int i=0; i<args.length; i++) {
-
-         if (args[i].equals("-"+argFlag)) {
-
-            return true;
-
-         }
-
-      }
-
-      return false;
-
-   }    
-
-
-
-   private static String findArg(String argFlag, String[] args)
-
-   {
-
-      for (int i=0; i<args.length; i++) {
-
-         if (args[i].equals("-"+argFlag)) {
-
-            return args[i+1];
-
-         }
-
-      }
-
-      throw new IllegalArgumentException("Couldn't find " + argFlag);
-
-   }
-
-
-
-   private static void usage()
-
-   {
-
-      System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber -root [rootDir | file] [-recurse] [-format each|top|nobreaks] [-g]");
-
-      System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root /home/me/myproject/src -recurse -format nobreaks -sortjavalibshigh");
-
-      System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root d:\\project\\src\\Foo.java");
-
-      System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root d:\\importscrubber\\etc\\FunctionalTest.java -classesRoot d:\\importscrubber\\build -sourcesRoot d:\\importscrubber\\etc\\ ");
-
-      System.out.println("\r\nOR, TO USE THE GUI:\r\n");
-
-      System.out.println("java net.sourceforge.importscrubber.ImportScrubber -g");
-
-   }
+    }
 
 }
 

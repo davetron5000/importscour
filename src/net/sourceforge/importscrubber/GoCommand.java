@@ -1,11 +1,6 @@
 package net.sourceforge.importscrubber;
 
 
-import java.awt.event.ActionEvent;
-
-import java.awt.event.ActionListener;
-
-
 /**
 
  * Encapsulates the "go" Command (GOF p 233)
@@ -13,19 +8,19 @@ import java.awt.event.ActionListener;
  */
 public class GoCommand extends Thread {
 
-   private ImportScrubberGUI receiver;
+    private ImportScrubberGUI receiver;
 
-   public GoCommand(ImportScrubberGUI receiver) {
+    public GoCommand(ImportScrubberGUI receiver) {
 
-      this.receiver = receiver;
+        this.receiver = receiver;
 
-   }
+    }
 
-   public void run() {
+    public void run() {
 
-      receiver.go();
+        receiver.go();
 
-   }
+    }
 
 }
 
