@@ -20,19 +20,24 @@ public class ScrubTask implements IReferenceFoundListener {
 
     private IStatementFormat _format;
 
+    private String _encoding;
 
     public ScrubTask(FilePair pair, IStatementFormat format) throws IOException {
-
+        this(pair, format, null);
+    }
+    public ScrubTask(FilePair pair, IStatementFormat format, String encoding)
+        throws IOException {
         _pair = pair;
 
         _format = format;
 
+        _encoding = encoding;
     }
 
 
     public void run() throws IOException {
 
-        _sourceFile = new SourceFile(_pair.getSourceFile());
+        _sourceFile = new SourceFile(_pair.getSourceFile(), _encoding);
 
         for (ListIterator iter = _pair.getClassFiles(); iter.hasNext();) {
 

@@ -12,11 +12,20 @@ public class SourceFile {
     private ImportStatements _imports;
     private String _firstCommentHeader;
     private String _secondCommentHeader;
+    private String _encoding;
 
     public SourceFile(File file) throws IOException {
+        this(file, null);
+    }
+    public SourceFile(File file, String encoding) throws IOException {
         _file = file;
         _imports = new ImportStatements();
-        // read in the source        FileReader reader = new FileReader(_file);
+        _encoding = 
+            (encoding == null ? System.getProperty("file.encoding") : encoding);
+
+        // read in the source
+        FileInputStream inputstream = new FileInputStream(_file);
+        InputStreamReader reader = new InputStreamReader(inputstream, _encoding);
         BufferedReader buff = new BufferedReader(reader);
         StringBuffer classBodyBuffer = new StringBuffer((int) file.length());
         StringBuffer firstCommentHeaderBuffer = new StringBuffer();
@@ -59,6 +68,7 @@ public class SourceFile {
 
         buff.close();
         reader.close();
+        inputstream.close();
         if (ImportScrubber.DEBUG) System.out.println("Done parsing source code file " + file.getAbsolutePath());
         _classBody = classBodyBuffer.toString();
         _firstCommentHeader = firstCommentHeaderBuffer.toString();
@@ -79,7 +89,14 @@ public class SourceFile {
         finishedSource.append(removeMultipleBlankLines(_secondCommentHeader));
         finishedSource.append(_imports.getOutput(format));
        _classBody = ImportScrubber.LINE_SEPARATOR + removeMultipleBlankLines(_classBody);
-        finishedSource.append(_classBody);        // write it to disk        BufferedWriter writer = new BufferedWriter(new FileWriter(_file));
+        finishedSource.append(_classBody);        // write it to disk
+        BufferedWriter writer = 
+            new BufferedWriter(
+                new OutputStreamWriter(
+                    new FileOutputStream(_file),
+                    _encoding
+                    )
+                );
         writer.write(finishedSource.toString());
         writer.close();
     }

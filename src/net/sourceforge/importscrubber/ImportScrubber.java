@@ -69,10 +69,14 @@ public class ImportScrubber {
 
    // Returns number of files to work on, allows getFiles to be called just once.
    public int buildTasks() throws IOException {
+       return buildTasks(null);
+   }
+
+   public int buildTasks(String encoding) throws IOException {
         List list = _fileChooser.getFiles();
         for (ListIterator iter = list.listIterator(); iter.hasNext();) {
             FilePair pair = (FilePair) iter.next();
-            _tasks.add(new ScrubTask(pair, _format));
+            _tasks.add(new ScrubTask(pair, _format, encoding));
         }
         return list.size();
     }
@@ -118,6 +122,11 @@ public class ImportScrubber {
 
         format.sortJavaLibsHigh(argExists("sortjavalibshigh", args));
 
+        String encoding = null;
+        if (argExists("encoding", args)) {
+            encoding = findArg("encoding", args);
+        }
+
         try {
             ImportScrubber scrubber = new ImportScrubber();
             if (argExists("classesRoot", args)) {
@@ -134,7 +143,7 @@ public class ImportScrubber {
             System.out.println("Building file list");
             List files = scrubber.getFiles();
             System.out.println("Building tasks");
-            scrubber.buildTasks();
+            scrubber.buildTasks(encoding);
             System.out.println("Processing " + files.size() + " files");
             scrubber.runTasks(new ConsoleProgressMonitor());
             System.out.println(LINE_SEPARATOR + "All done!");
@@ -162,7 +171,7 @@ public class ImportScrubber {
     }
 
     private static void usage() {
-        System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber -root [rootDir | file] [-recurse] [-format each|top|nobreaks] [-g]");
+        System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber -root [rootDir | file] [-recurse] [-format each|top|nobreaks] [-encoding charsetname] [-g]");
         System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root /home/me/myproject/src -recurse -format nobreaks -sortjavalibshigh");
         System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root d:\\project\\src\\Foo.java");
         System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root d:\\importscrubber\\etc\\FunctionalTest.java -classesRoot d:\\importscrubber\\build -sourcesRoot d:\\importscrubber\\etc\\ ");

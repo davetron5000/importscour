@@ -31,6 +31,7 @@ public class ImportScrubberTask extends Task {
 
     private boolean _sortjavalibshigh;
 
+    private String _encoding;
 
     public void setVerbose(boolean verbose) {
 
@@ -65,6 +66,9 @@ public class ImportScrubberTask extends Task {
 
     }
 
+    public void setEncoding(String encoding) {
+        _encoding = encoding;
+    }
 
     public void execute() throws BuildException {
 
@@ -109,7 +113,7 @@ public class ImportScrubberTask extends Task {
 
             log("Processing " + scrubber.getFiles().size() + " files");
 
-            scrubber.buildTasks();
+            scrubber.buildTasks(_encoding);
 
             scrubber.runTasks(new IProgressMonitor() {
 
