@@ -25,30 +25,30 @@ public class ImportScrubber {
     public static final String FILE_SEPARATOR = System.getProperty("file.separator");
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static boolean DEBUG = false;
-    private IFileChooser _fileChooser;
-    private List _tasks = new ArrayList();
-    private IStatementFormat _format;
+    private IFileChooser fileChooser;
+    private List tasks = new ArrayList();
+    private IStatementFormat format;
 
     public void setFileRoot(String filename, boolean recurse) {
         File file = new File(filename);
         if (file.isDirectory()) {
             if (recurse) {
-                _fileChooser = new RecursiveFileChooser();
+                fileChooser = new RecursiveFileChooser();
             } else {
-                _fileChooser = new AllInDirectoryFileChooser();
+                fileChooser = new AllInDirectoryFileChooser();
             }
         } else {
-            _fileChooser = new SingleFileChooser();
+            fileChooser = new SingleFileChooser();
         }
-        _fileChooser.setRoot(filename);
+        fileChooser.setRoot(filename);
     }
 
    public void setFileRoot(String sourceRoot, String classRoot, String fileName) {
-        _fileChooser = new DualRootSingleFileChooser(sourceRoot, classRoot, fileName);
+        fileChooser = new DualRootSingleFileChooser(sourceRoot, classRoot, fileName);
     }
 
    public void setFormat(IStatementFormat format) {
-        _format = format;
+        this.format = format;
     }
 
    public void debugOff() {
@@ -60,11 +60,11 @@ public class ImportScrubber {
     }
 
    public int getTaskCount() {
-        return _tasks.size();
+        return tasks.size();
     }
 
    public List getFiles() {
-        return _fileChooser.getFiles();
+        return fileChooser.getFiles();
     }
 
    // Returns number of files to work on, allows getFiles to be called just once.
@@ -73,22 +73,22 @@ public class ImportScrubber {
    }
 
    public int buildTasks(String encoding) throws IOException {
-        List list = _fileChooser.getFiles();
+        List list = fileChooser.getFiles();
         for (ListIterator iter = list.listIterator(); iter.hasNext();) {
             FilePair pair = (FilePair) iter.next();
-            _tasks.add(new ScrubTask(pair, _format, encoding));
+            tasks.add(new ScrubTask(pair, format, encoding));
         }
         return list.size();
     }
 
    public void runTasks(IProgressMonitor monitor) throws IOException {
-        for (ListIterator iter = _tasks.listIterator(); iter.hasNext();) {
+        for (ListIterator iter = tasks.listIterator(); iter.hasNext();) {
             ScrubTask task = (ScrubTask) iter.next();
             monitor.taskStarted(task);
             task.run();
             monitor.taskComplete(task);
         }
-        _tasks.clear();
+        tasks.clear();
     }
 
 

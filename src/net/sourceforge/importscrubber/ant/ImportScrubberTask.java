@@ -3,6 +3,7 @@ package net.sourceforge.importscrubber.ant;
 
 import net.sourceforge.importscrubber.IProgressMonitor;
 import net.sourceforge.importscrubber.ScrubTask;
+import net.sourceforge.importscrubber.NullProgressMonitor;
 import net.sourceforge.importscrubber.format.IStatementFormat;
 import net.sourceforge.importscrubber.format.StatementFormatFactory;
 import org.apache.tools.ant.BuildException;
@@ -20,118 +21,60 @@ import java.io.File;
  */
 
 public class ImportScrubberTask extends Task {
-
-    private boolean _verbose;
-
-    private boolean _recurse;
-
-    private String _rootString;
-
-    private String _formatID;
-
-    private boolean _sortjavalibshigh;
-
-    private String _encoding;
-
+    private boolean verbose;
+    private boolean recurse;
+    private String rootString;
+    private String formatID;
+    private boolean sortjavalibshigh;
+    private String encoding;
     public void setVerbose(boolean verbose) {
-
-        _verbose = verbose;
-
+       this.verbose = verbose;
     }
-
 
     public void setSortjavalibshigh(boolean sortjavalibshigh) {
-
-        _sortjavalibshigh = sortjavalibshigh;
-
+        this.sortjavalibshigh = sortjavalibshigh;
     }
 
-
-    public void setRecurse(boolean recurse) {
-
-        _recurse = recurse;
-
+   public void setRecurse(boolean recurse) {
+        this.recurse = recurse;
     }
-
     public void setRoot(String rootString) {
-
-        _rootString = rootString;
-
+        this.rootString = rootString;
     }
 
-
-    public void setFormat(String format) {
-
-        _formatID = format;
-
+   public void setFormat(String format) {
+        this.formatID = format;
     }
-
     public void setEncoding(String encoding) {
-        _encoding = encoding;
-    }
-
+       this.encoding = encoding;
+   }
     public void execute() throws BuildException {
-
-        if (_rootString == null || _rootString.length() == 0) {
-
+        if (rootString == null || rootString.length() == 0) {
             throw new BuildException("You must set a root for the ImportScrubber task to work");
-
         }
 
-
-        if (_formatID == null) {
-
-            _formatID = StatementFormatFactory.DEFAULT;
-
+       if (formatID == null) {
+            formatID = StatementFormatFactory.DEFAULT;
         }
 
-
-        File root = new File(_rootString);
-
+       File root = new File(rootString);
         if (!root.exists()) {
-
-            throw new BuildException("The root " + _rootString + " does not exist");
-
+            throw new BuildException("The root " + rootString + " does not exist");
         }
 
-
-        try {
-
+       try {
             net.sourceforge.importscrubber.ImportScrubber scrubber = new net.sourceforge.importscrubber.ImportScrubber();
-
-            IStatementFormat format = StatementFormatFactory.getInstance().createStatementFormat(_formatID);
-
-            format.sortJavaLibsHigh(_sortjavalibshigh);
-
+            IStatementFormat format = StatementFormatFactory.getInstance().createStatementFormat(formatID);
+            format.sortJavaLibsHigh(sortjavalibshigh);
             scrubber.setFormat(format);
-
-            scrubber.setFileRoot(_rootString, _recurse);
-
+            scrubber.setFileRoot(rootString, recurse);
             log("Building file list");
-
             scrubber.getFiles();
-
             log("Processing " + scrubber.getFiles().size() + " files");
-
-            scrubber.buildTasks(_encoding);
-
-            scrubber.runTasks(new IProgressMonitor() {
-
-                public void taskStarted(ScrubTask task) {
-                }
-
-                public void taskComplete(ScrubTask task) {
-                }
-
-            });
-
+            scrubber.buildTasks(encoding);
+            scrubber.runTasks(new NullProgressMonitor());
         } catch (Exception ex) {
-
             throw new BuildException(ex);
-
         }
-
     }
-
-
 }
