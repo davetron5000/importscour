@@ -25,26 +25,26 @@ public class PackageStmtTest extends TestCase
    public void testBasic()
    {
       PackageStmt stmt = new PackageStmt(DEFAULT);
-      assert(stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.Buz")));
-      assert(!stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.osage.Bat")));
+      assertTrue(stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.Buz")));
+      assertTrue(!stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.osage.Bat")));
    }
 
    public void testDefaultPkg()
    {
       PackageStmt stmt = new PackageStmt();
-      assert(!stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.Foo")));
-      assert(stmt.isInSamePackageAs(new ImportStatement("")));
+      assertTrue(!stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.Foo")));
+      assertTrue(stmt.isInSamePackageAs(new ImportStatement("")));
    }
 
    public void testInnerClass()
    {
       PackageStmt stmt = new PackageStmt(DEFAULT);
-      assert(stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.Foo.Fiz")));
+      assertTrue(stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.Foo.Fiz")));
    }
    
    public void testChildPackage()
    {
       PackageStmt stmt = new PackageStmt(DEFAULT);
-      assert(!stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.biz.Buz")));
+      assertTrue(!stmt.isInSamePackageAs(new ImportStatement("net.sourceforge.importscrubber.biz.Buz")));
    }
 }

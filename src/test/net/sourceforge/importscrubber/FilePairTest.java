@@ -24,11 +24,11 @@ public class FilePairTest extends TestCase
       File a = new File("c:\\");
       File b = new File("d:\\");
       FilePair pair = new FilePair(a, b);
-      assert(pair.getSourceFile().equals(a));
+      assertTrue(pair.getSourceFile().equals(a));
 
       Iterator i = pair.getClassFiles();
-      assert(i.hasNext());
+      assertTrue(i.hasNext());
       i.next();
-      assert(!i.hasNext());
+      assertTrue(!i.hasNext());
    }
 }
