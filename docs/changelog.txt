@@ -1,10 +1,10 @@
 March 11 2002 - 1.4.1:
-Fixed bug which I introduced in v1.4.0 - the import keyword and type were crammed together. Thanks to Markus Crafter for catching this.
+Fixed bug which I introduced in v1.4.0 - the import keyword and type were crammed together. Thanks to Marcus Crafter for catching this.
 
 March 08 2002 - 1.4.0:
 Moved the "put Java libraries at the top" to a menu option.
 Modified source code parser to look for the import keyword rather than the import keyword followed by a space.  Thanks to Marcus Crafter for the suggestion.
-Added a Unix go.sh - thanks to Markus Crafter for the script.
+Added a Unix go.sh - thanks to Marcus Crafter for the script.
 Modified to use the latest BCEL release (5.0 rc1).
 Modified to remember what directory you used last.  Thanks to several folks for this suggestion.
 
