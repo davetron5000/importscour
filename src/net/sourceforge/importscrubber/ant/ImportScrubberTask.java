@@ -28,25 +28,25 @@ public class ImportScrubberTask extends Task {
     private boolean sortjavalibshigh;
     private String encoding;
     public void setVerbose(boolean verbose) {
-       this.verbose = verbose;
+       verbose = verbose;
     }
 
     public void setSortjavalibshigh(boolean sortjavalibshigh) {
-        this.sortjavalibshigh = sortjavalibshigh;
+        sortjavalibshigh = sortjavalibshigh;
     }
 
    public void setRecurse(boolean recurse) {
-        this.recurse = recurse;
+        recurse = recurse;
     }
     public void setRoot(String rootString) {
-        this.rootString = rootString;
+        rootString = rootString;
     }
 
    public void setFormat(String format) {
-        this.formatID = format;
+        formatID = format;
     }
     public void setEncoding(String encoding) {
-       this.encoding = encoding;
+       encoding = encoding;
    }
     public void execute() throws BuildException {
         if (rootString == null || rootString.length() == 0) {
