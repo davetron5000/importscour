@@ -1,9 +1,8 @@
 @echo off
 
 set ROOT=c:\data\importscrubber\importscrubber\
-
-set classpath=%ROOT%lib\bcel_quilt.jar
-rem set classpath=%CLASSPATH%;%ROOT%lib\bcel.jar
+rem set classpath=%ROOT%lib\bcel_quilt.jar
+set classpath=%CLASSPATH%;%ROOT%lib\bcel.jar
 set classpath=%CLASSPATH%;%ROOT%lib\commons-graph.jar
 set classpath=%CLASSPATH%;%ROOT%lib\quilt.jar
 set classpath=%CLASSPATH%;%ROOT%lib\junit.jar
