@@ -1,0 +1,1 @@
+java junit.swingui.TestRunner test.net.sourceforge.importscrubber.TestDriver

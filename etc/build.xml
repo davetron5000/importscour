@@ -1,0 +1,96 @@
+<project name="importscrubber" default="compile" basedir=".">
+	<property name="rootDir" value="..\"/>
+	<property name="libDir" value="..\lib\"/>
+	<property name="sourceDir" value="..\src"/>
+	<property name="buildDir" value="..\build\"/>
+	<property name="javadocDir" value="..\docs\javadoc"/>
+	<property name="jnlp_staging_area" value="d:\data\importscrubberjnlp\"/>
+   	<property name="build.compiler" value="jikes"/>
+
+	<target name="delete">
+		<delete dir="${buildDir}"/>
+		<mkdir dir="${buildDir}"/>
+	</target>
+
+	<target name="compile">
+	      <javac 
+			deprecation="false" 
+			debug="true" 
+			optimize="false" 
+			srcdir="${sourceDir}" 
+			destdir="${buildDir}"
+			classpath="${libDir}bcel.jar;${libDir}junit.jar"/>
+	</target>
+
+	<target name="clean">
+		<antcall target="delete"/>
+		<antcall target="compile"/>
+	</target>
+
+	<target name="scrub">
+		<taskdef name="scrub" classname="net.sourceforge.importscrubber.ant.ImportScrubberTask"/>
+	      <javac 
+			deprecation="false" 
+			debug="true" 
+			optimize="false" 
+			srcdir="${sourceDir}" 
+			destdir="${sourceDir}"
+			classpath="${libDir}bcel.jar;${libDir}junit.jar"/>
+		<scrub 
+			root="${sourceDir}"
+			format="nobreaks" 
+			recurse="true"/>
+		<delete>
+			<fileset dir="${sourceDir}" includes="**/*.class"/>
+		</delete>
+	</target>
+
+	<target name="scrubtest">
+		<taskdef name="scrub" classname="net.sourceforge.importscrubber.ant.ImportScrubberTask"/>
+		<scrub 
+			root="${rootDir}etc\FunctionalTest.java"
+			format="nobreaks"
+			sortjavalibshigh="false" 
+			recurse="false"/>
+	</target>
+
+
+	<target name="all">
+		<delete dir="${javadocDir}"/>
+		<mkdir dir="${javadocDir}"/>
+		<delete dir="${buildDir}"/>
+		<mkdir dir="${buildDir}"/>
+		<antcall target="compile"/>
+		<javadoc
+			sourcepath="${sourceDir}"
+			destdir="${javadocDir}"
+			packagenames="net.sourceforge.importscrubber.*"
+			group="yes"
+			Windowtitle="ImportScrubber"/>
+		<jar 
+			jarfile="${libDir}importscrubber.jar" 
+			basedir="${buildDir}" 
+			excludes="test/**"/>
+		<copy 
+			file="${libDir}importscrubber.jar"
+			toDir="${jnlp_staging_area}"/>
+		<signjar
+			jar="${jnlp_staging_area}importscrubber.jar"
+			alias="myself"
+			keystore="${jnlp_staging_area}myKeyStore"
+			storepass="password"/>
+		<replace 
+			file="..\etc\FunctionalTest.java" 
+			token="import java.util.ArrayList" 
+			value="import java.util.*"/>
+		<replace 
+			file="..\etc\FunctionalTest.java" 
+			token="import java.io.FilePermission" 
+			value="import java.io.*"/>
+		<replace 
+			file="..\etc\FunctionalTest.java" 
+			token="import java.net.SocketOptions" 
+			value="import java.net.*"/>
+	</target>
+
+</project>
