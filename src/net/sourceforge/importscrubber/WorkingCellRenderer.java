@@ -6,7 +6,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import javax.swing.border.Border;
 
 /**
  * Encapsulates the appearance of an item in the file list.
