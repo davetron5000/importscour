@@ -1,32 +1,18 @@
 package net.sourceforge.importscrubber;
 
 
-/**
- * Encapsulates operations on a class' package statement.
- */
-
+/** * Encapsulates operations on a class' package statement. */
 public class PackageStmt {
 
     public static final String MARKER = "package ";
 
-
-    private final String _stmt;
-
+    private final String stmt;
     private final boolean _isInDefaultPackage;
-
     private final String _myPkg;
 
-
-    /**
-     * Creates a new PackageStatement that's not in the default package.
-     *
-     * @param stmt
-     */
-
+    /**     * Creates a new PackageStatement that's not in the default package.     *     * @param stmt     */
     public PackageStmt(String stmt) {
-
         this(stmt, false);
-
     }
 
 
@@ -43,17 +29,17 @@ public class PackageStmt {
 
     private PackageStmt(String stmt, boolean inDefaultPackage) {
 
-        _stmt = stmt;
+        this.stmt = stmt;
 
         _isInDefaultPackage = inDefaultPackage;
 
         if (!_isInDefaultPackage) {
 
-            int firstSpace = _stmt.indexOf(" ") + 1;
+            int firstSpace = stmt.indexOf(" ") + 1;
 
-            int semiColon = _stmt.indexOf(";");
+            int semiColon = stmt.indexOf(";");
 
-            _myPkg = _stmt.substring(firstSpace, semiColon);
+            _myPkg = stmt.substring(firstSpace, semiColon);
 
         } else {
 
@@ -131,7 +117,7 @@ public class PackageStmt {
 
         }
 
-        buffer.append(_stmt);
+        buffer.append(stmt);
 
         buffer.append(ImportScrubber.LINE_SEPARATOR);
 
