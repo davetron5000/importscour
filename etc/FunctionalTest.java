@@ -3,10 +3,10 @@
  */
 import java.awt.Component;
 import java.io.File;
-import java.io.FilePermission;
+import java.io.*;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
-import java.net.SocketOptions;
+import java.net.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;

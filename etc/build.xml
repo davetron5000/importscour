@@ -41,7 +41,7 @@
 		<scrub root="${rootDir}etc\FunctionalTest.java" classRoot="${rootDir}etc\" format="nobreaks" sortjavalibshigh="false" recurse="false"/>
 	</target>
 
-	<target name="all" depends="delete,compile,jar">
+	<target name="release" depends="delete,compile,jar">
 		<delete dir="${javadocDir}"/>
 		<mkdir dir="${javadocDir}"/>
 		<javadoc
