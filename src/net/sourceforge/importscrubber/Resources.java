@@ -10,7 +10,7 @@ public class Resources extends ListResourceBundle
    public static final String BROWSE_LABEL = "Browse";
    public static final String GO_LABEL = "Go";
    public static final String FIND_FILES_LABEL = "Find files";
-   public static final String ALL_DONE = "All done!";
+   public static final String ALL_DONE = "All done!  \r\nYou might want to recompile just to ensure \r\nthat I didn't accidentally remove too many imports\r\n";
    public static final String HELP_LABEL = "Help";
    public static final String FILE_LABEL = "File";
    public static final String ABOUT_LABEL = "About";
