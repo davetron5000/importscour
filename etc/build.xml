@@ -17,6 +17,13 @@
 	      <javac deprecation="true"	debug="true" optimize="false" srcdir="${sourceDir}"	destdir="${buildDir}" classpath="${libDir}bcel.jar;${libDir}junit.jar"/>
 	</target>
 
+    <target name="jar">
+        <jar
+            jarfile="${libDir}importscrubber.jar"
+            basedir="${buildDir}"
+            excludes="test/**"/>
+    </target>
+
 	<target name="clean" depends="delete,compile">
 	</target>
 
@@ -31,10 +38,10 @@
 
 	<target name="scrubtest">
 		<taskdef name="scrub" classname="net.sourceforge.importscrubber.ant.ImportScrubberTask"/>
-		<scrub root="${rootDir}etc\FunctionalTest.java" format="nobreaks" sortjavalibshigh="false" recurse="false"/>
+		<scrub root="${rootDir}etc\FunctionalTest.java" classRoot="${rootDir}etc\" format="nobreaks" sortjavalibshigh="false" recurse="false"/>
 	</target>
 
-	<target name="all" depends="delete,compile">
+	<target name="all" depends="delete,compile,jar">
 		<delete dir="${javadocDir}"/>
 		<mkdir dir="${javadocDir}"/>
 		<javadoc
@@ -43,16 +50,13 @@
 			packagenames="net.sourceforge.importscrubber.*"
 			group="yes"
 			Windowtitle="ImportScrubber"/>
-		<jar
-			jarfile="${libDir}importscrubber.jar"
-			basedir="${buildDir}"
-			excludes="test/**"/>
 		<copy file="${libDir}importscrubber.jar" toDir="${jnlp_staging_area}"/>
 		<signjar
 			jar="${jnlp_staging_area}importscrubber.jar"
 			alias="myself"
 			keystore="${jnlp_staging_area}myKeyStore"
 			storepass="password"/>
+        <copy file="${jnlp_staging_area}importscrubber.jar" toDir="${libDir}"/>
 		<replace
             file="..\etc\FunctionalTest.java"
 			token="import java.util.ArrayList"

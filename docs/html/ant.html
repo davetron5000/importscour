@@ -23,9 +23,9 @@ scrub.  If you want to scrub a directory, put the directory name in the root
 attribute.  If you want to descend recursively from the root directory, use the
 <code>recurse="true"</code> attribute.  If you want the Java standard libraries
 to appear at the top of the list of import statements, use the
-<code>sortjavalibshigh="true"</code> attribute.  And you can specify the way to format
-the import statements - either <code>nobreaks</code>, <code>each</code>, or
-<code>top</code>. The default format is <Code>nobreaks</code>.
+<code>sortjavalibshigh="true"</code> attribute.  You can specify the way to format
+the import statements - either <code>nobreaks</code> or <code>each</code>. The default format is <Code>nobreaks</code>.
+Finally, you can specify an encoding to use with the <code>encoding</code> attribute.
 
 <p>Here's the Ant target I use to scrub my projects.  Note that I compile the
 code with debug info first - which discourages the compiler from removing class

@@ -13,7 +13,7 @@ public class SourceFile
 	private String _encoding;
     private PackageStmt _package;
     private String _classBody;
-    private ImportStatements _imports;
+    private ImportStatements _imports  = new ImportStatements();
     private String _firstCommentHeader;
     private String _secondCommentHeader;
 
@@ -21,11 +21,15 @@ public class SourceFile
     {
         _file = file;
 		_encoding = encoding;
-        _imports = new ImportStatements();
 
         // read in the source
 		FileInputStream inputstream = new FileInputStream(_file);
-		InputStreamReader reader = new InputStreamReader(inputstream, _encoding);
+		InputStreamReader reader = null;
+        if (_encoding != null) {
+            reader = new InputStreamReader(inputstream, _encoding);
+        } else {
+            reader = new InputStreamReader(inputstream);
+        }
         BufferedReader buff = new BufferedReader(reader);
 
         StringBuffer classBodyBuffer = new StringBuffer((int)file.length());
@@ -133,8 +137,14 @@ public class SourceFile
             finishedSource.append(_classBody);
 
             // write it to disk
-			BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(_file), _encoding));
+            OutputStreamWriter osw = null;
+            if (_encoding != null) {
+                osw = new OutputStreamWriter(new FileOutputStream(_file), _encoding);
+            } else {
+                osw = new OutputStreamWriter(new FileOutputStream(_file));
+            }
+
+			BufferedWriter writer = new BufferedWriter(osw);
             writer.write(finishedSource.toString());
             writer.close();
         }
