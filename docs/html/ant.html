@@ -43,7 +43,7 @@ references.
 			srcdir="${sourceDir}" 
 			destdir="${sourceDir}"
 			classpath="${libDir}bcel.jar;${libDir}junit.jar"/&gt;
-		&lt;scrub root="${sourceDir}" classRoot="${classesDir}" format="top" recurse="true"/&gt;
+		&lt;scrub root="${sourceDir}" classRoot="${classesDir}" recurse="true"/&gt;
 		&lt;delete&gt;
 			&lt;fileset dir="${sourceDir}" includes="**/*.class"/&gt;
 		&lt;/delete&gt;
