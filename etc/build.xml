@@ -10,6 +10,10 @@
 	<target name="delete">
 		<delete dir="${buildDir}"/>
 		<mkdir dir="${buildDir}"/>
+		<delete dir="${javadocDir}"/>
+		<mkdir dir="${javadocDir}"/>
+		<delete dir="${buildDir}"/>
+		<mkdir dir="${buildDir}"/>
 	</target>
 
 	<target name="compile">
@@ -22,9 +26,7 @@
 			classpath="${libDir}bcel.jar;${libDir}junit.jar"/>
 	</target>
 
-	<target name="clean">
-		<antcall target="delete"/>
-		<antcall target="compile"/>
+	<target name="clean" depends="delete,compile">
 	</target>
 
 	<target name="scrub">
@@ -55,12 +57,7 @@
 	</target>
 
 
-	<target name="all">
-		<delete dir="${javadocDir}"/>
-		<mkdir dir="${javadocDir}"/>
-		<delete dir="${buildDir}"/>
-		<mkdir dir="${buildDir}"/>
-		<antcall target="compile"/>
+	<target name="all" depends="clean,compile">
 		<javadoc
 			sourcepath="${sourceDir}"
 			destdir="${javadocDir}"
