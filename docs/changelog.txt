@@ -1,6 +1,9 @@
+??? ?? ???? 1.4.3:
+Added -encoding attribute thanks to Toshiyuki Iwata.
+
 April 19 2002 - 1.4.2:
 Added contributions from Neil Wightman:
-+layout changes  
++layout changes
 +GoCommand and FindCommand threaded
 +UI refreshes cleaned up
 +All options saved cleanly
@@ -37,10 +40,10 @@ October 22 2001 - 1.3.5:
 Modified copyright header preservation thing to allow copyright header in a different area.
 Moved Ant task to net.sourceforge.importscrubber.ant package
 
-September 25 2001 - 1.3.4: 
+September 25 2001 - 1.3.4:
 Added copyright header comment preservation - thanks to Scott Willy and Trent Hoeppner for the suggestion
 
-September 18 2001 - 1.3.3: 
+September 18 2001 - 1.3.3:
 Added Scott Willy's DualRootSingleFileChooser
 
 September 11 2001 - 1.3.2:
@@ -68,7 +71,7 @@ Implemented package separation feature suggested by Paul Holser.
 June 29 2001 - 1.1.9:
 Minor performance enhancements, fixed bug which allowed java.lang imports to be included.
 
-June 25 2001 - 1.1.8: 
+June 25 2001 - 1.1.8:
 Fixed bug which messed up imports when a Class object was referenced only as a method parameter, i.e., List.add(Foo.class).
 
 June 20 2001 - 1.1.7:
