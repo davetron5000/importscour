@@ -12,7 +12,6 @@ import java.util.*;
 
 public class FileChooser implements Iterator
 {
-    private static ResourceBundle res = ResourceBundle.getBundle("net.sourceforge.importscrubber.Resources");
     private String _sourceRoot, _classRoot;
     private boolean _recurse;
     // pre-computed for efficiency

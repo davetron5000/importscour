@@ -3,7 +3,6 @@ package net.sourceforge.importscrubber;
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 /**
  * Encapsulates the appearance of an item in the file list.

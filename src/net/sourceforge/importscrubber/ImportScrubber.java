@@ -96,7 +96,7 @@ public class ImportScrubber
     public static void main(String[] args)
     {
         if (argExists("g",args)) {
-            ImportScrubberGUI gui = new ImportScrubberGUI();
+            new ImportScrubberGUI();
             return;
         }
 
@@ -134,7 +134,6 @@ public class ImportScrubber
             scrubber.setFormat(format);
             System.out.println("Building tasks");
             scrubber.buildTasks(scrubber.getFilesIterator());
-            // System.out.println("Processing " + files.size() + " files");
             scrubber.runTasks(new ConsoleProgressMonitor());
             System.out.println(LINE_SEPARATOR + "All done!");
         } catch (Exception e) {

@@ -7,7 +7,7 @@ public class StatementFormat
     public static final int BREAK_EACH_PACKAGE = 0;
     public static final int BREAK_NONE = 1;
 
-    private static ArrayList _formats = new ArrayList(2);
+    private static List _formats = new ArrayList(2);
 
     static {
         ResourceBundle res = ResourceBundle.getBundle("net.sourceforge.importscrubber.Resources");
@@ -62,7 +62,7 @@ public class StatementFormat
     private int _breakStyle;
     private int _combineThreshold;
     private boolean _thresholdStandardOnly; // true if threshold should only apply to standard libraries
-    private ArrayList identical; // for applyFormat -- stored here so we avoid re-allocating each time
+    private List identical; // for applyFormat -- stored here so we avoid re-allocating each time
 
     public StatementFormat(boolean sortJavaLibsHigh, int breakStyle, int combineThreshold, boolean thresholdStandardOnly)
     {

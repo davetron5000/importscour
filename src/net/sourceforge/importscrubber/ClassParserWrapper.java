@@ -11,7 +11,6 @@ import org.apache.bcel.classfile.ConstantUtf8;
 import org.apache.bcel.classfile.DescendingVisitor;
 import org.apache.bcel.classfile.EmptyVisitor;
 import org.apache.bcel.classfile.JavaClass;
-import org.apache.bcel.classfile.Visitor;
 
 /**
  * This class encapsulates whatever utility we are using to parse the class file

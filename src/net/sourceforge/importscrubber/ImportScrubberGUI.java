@@ -2,12 +2,9 @@ package net.sourceforge.importscrubber;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
