@@ -120,7 +120,7 @@ public class ClassParserWrapper {
          }
          if (Character.isUpperCase(in.charAt(0))) {
             return false;
-         }
+         }          if (in.startsWith("val.")) {              return false;          }
          return true;
       }
 
