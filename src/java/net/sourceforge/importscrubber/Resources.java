@@ -22,9 +22,9 @@ public class Resources extends ListResourceBundle
     public static final String BREAK_EACH_PACKAGE = "Break for each package";
     public static final String BREAK_NONE = "No breaks";
 
-    public static final String ERR_NOT_DIR = "File is not a directory!";
+    public static final String ERR_NOT_DIR = " is not a directory!";
     public static final String ERR_UNABLE_TO_FINISH = "Unable to finish due to:";
-    public static final String ERR_DIR_NOT_EXIST = "Directory does not exist!";
+    public static final String ERR_DIR_NOT_EXIST = " does not exist!";
     public static final String ERR_CLASS_FILE_MUST_EXIST = "Class file must exist: ";
     public static final String ERR_MUST_NOT_BE_DIR = "Input file cannot be a directory: ";
     public static final String SORT_JAVA_LIBS_LABEL = "Sort standard libraries high";

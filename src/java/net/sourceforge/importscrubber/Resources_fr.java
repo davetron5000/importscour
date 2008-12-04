@@ -36,9 +36,9 @@ public class Resources_fr extends Resources
 
                 {BREAK_NONE, "Pas d'arrêts"},
 
-                {ERR_NOT_DIR, "Le fichier n'est pas un répertoire!"},
+                {ERR_NOT_DIR, " n'est pas un répertoire!"},
 
-                {ERR_DIR_NOT_EXIST, "Ce répertoire n'existe past!"},
+                {ERR_DIR_NOT_EXIST, " n'existe past!"},
 
                 {ERR_CLASS_FILE_MUST_EXIST, "Le fichier binaire (.class) doit exister:"},
 

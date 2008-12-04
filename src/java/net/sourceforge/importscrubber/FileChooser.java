@@ -28,14 +28,14 @@ public class FileChooser implements Iterator
     {
         File file = new File(sourceRoot);
         if (!file.exists())
-            throw new IllegalArgumentException(Resources.ERR_DIR_NOT_EXIST);
+            throw new IllegalArgumentException(file.toString() + Resources.ERR_DIR_NOT_EXIST);
         _sourceRoot = file.getCanonicalPath();
 
         file = new File(classRoot);
         if (!file.isDirectory())
-            throw new IllegalArgumentException(Resources.ERR_NOT_DIR);
+            throw new IllegalArgumentException(file.toString() + Resources.ERR_NOT_DIR);
         if (!file.exists())
-            throw new IllegalArgumentException(Resources.ERR_DIR_NOT_EXIST);
+            throw new IllegalArgumentException(file.toString() + Resources.ERR_DIR_NOT_EXIST);
         _classRoot = file.getCanonicalPath();
 
         _recurse = recurse;
