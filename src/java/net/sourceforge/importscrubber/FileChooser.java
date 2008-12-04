@@ -20,37 +20,24 @@ public class FileChooser implements Iterator
     private String _sourceRoot, _classRoot;
     private boolean _recurse;
     // pre-computed for efficiency
-    int relStart;
+    int sourceFileDirectoryNameLength;
 
     private LinkedList<String> possibles = new LinkedList<String>();
     private FilePair nextFp;
 
-    public FileChooser(String sourceRoot, String classRoot, boolean recurse) throws IOException
+    public FileChooser(String sourceRoot, String classRoot, boolean recurse) 
+        throws IOException
     {
-        File file = new File(sourceRoot);
-        if (!file.exists())
-            throw new IllegalArgumentException(file.toString() + Resources.ERR_DIR_NOT_EXIST);
-        _sourceRoot = file.getCanonicalPath();
-
-        file = new File(classRoot);
-        if (!file.isDirectory())
-            throw new IllegalArgumentException(file.toString() + Resources.ERR_NOT_DIR);
-        if (!file.exists())
-            throw new IllegalArgumentException(file.toString() + Resources.ERR_DIR_NOT_EXIST);
-        _classRoot = file.getCanonicalPath();
-
         _recurse = recurse;
+        _sourceRoot = getCanonical(sourceRoot,false);
+        _classRoot = getCanonical(classRoot,true);
 
-        relStart = ImportScrubber.getDirectory(_sourceRoot).length();
+        sourceFileDirectoryNameLength = ImportScrubber.getDirectory(_sourceRoot).length();
 
         possibles.add(_sourceRoot);
     }
 
-    public void remove
-        ()
-    {
-        throw new UnsupportedOperationException();
-    }
+    public void remove() { throw new UnsupportedOperationException(); }
 
     public boolean hasNext()
     {
@@ -77,8 +64,20 @@ public class FileChooser implements Iterator
         return fp;
     }
 
+    private String getCanonical(String path, boolean shouldBeDirectory)
+        throws IOException
+    {
+        File file = new File(path);
+        if (!file.exists())
+            throw new IllegalArgumentException(file.toString() + Resources.ERR_DIR_NOT_EXIST);
+        if (shouldBeDirectory && !file.isDirectory())
+            throw new IllegalArgumentException(file.toString() + Resources.ERR_NOT_DIR);
+
+        return file.getCanonicalPath();
+    }
+
+
     // returns null if the sourcefile didn't have a matching classfile.
-    @SuppressWarnings("unchecked")
     private FilePair nextPossible() throws NoSuchElementException
     {
         String s = (String)possibles.removeFirst();
@@ -101,7 +100,7 @@ public class FileChooser implements Iterator
         if (!(source.canRead() && source.canWrite())) {
             return null;
         }
-        String relativeSourceFilename = source.getParent().substring(relStart);
+        String relativeSourceFilename = source.getParent().substring(sourceFileDirectoryNameLength);
 
         String cfilename = source.getName().substring(0, source.getName().length() - 5) + ".class";
         String classfilename = _classRoot + relativeSourceFilename + ImportScrubber.FILE_SEPARATOR + cfilename;
