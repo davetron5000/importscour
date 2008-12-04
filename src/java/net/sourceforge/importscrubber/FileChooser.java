@@ -25,6 +25,13 @@ public class FileChooser implements Iterator
     private LinkedList<String> possibles = new LinkedList<String>();
     private FilePair nextFp;
 
+    /** Create a new FileChooser for the given source and class, possibly recursing.
+     * @param sourceRoot a directory or file
+     * @param classRoot the analagous directory for the sourceRoot; if sourceRoot is a directory, this should be the directory at the same level of depth.  If sourceRoot
+     * is a file, this should point to the directory containing that file's class.
+     * @param recurse if true, directories inside sourceRoot are recursed into
+     * @throws IOException if there was some I/O problem
+     */
     public FileChooser(String sourceRoot, String classRoot, boolean recurse) 
         throws IOException
     {
@@ -39,6 +46,7 @@ public class FileChooser implements Iterator
 
     public void remove() { throw new UnsupportedOperationException(); }
 
+    /** True if there is another file/class pair to process */
     public boolean hasNext()
     {
         if (nextFp == null) {
@@ -49,6 +57,8 @@ public class FileChooser implements Iterator
         return nextFp != null;
     }
 
+    /** Returns the next FilePair.
+     */
     public Object next() throws NoSuchElementException
     {
         if (nextFp != null) {
