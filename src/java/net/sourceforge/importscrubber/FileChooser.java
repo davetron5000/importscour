@@ -22,6 +22,7 @@ public class FileChooser implements Iterator
     private LinkedList possibles = new LinkedList();
     private FilePair nextFp;
 
+    @SuppressWarnings("unchecked")
     public FileChooser(String sourceRoot, String classRoot, boolean recurse) throws IOException
     {
         File file = new File(sourceRoot);
@@ -75,6 +76,7 @@ public class FileChooser implements Iterator
     }
 
     // returns null if the sourcefile didn't have a matching classfile.
+    @SuppressWarnings("unchecked")
     private FilePair nextPossible() throws NoSuchElementException
     {
         String s = (String)possibles.removeFirst();

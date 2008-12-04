@@ -1,0 +1,14 @@
+<project name="javadoc">
+    <target name="javadoc" description="Generates Javadoc">
+        <javadoc sourcepath="${java.src.dir}"
+            destdir="${javadoc.dir}"
+            classpathref="compile.classpath">
+            <link href="http://java.sun.com/j2se/1.5/docs/api/" />
+            <link href="http://java.sun.com/javaee/5/docs/api/" />
+            <link href="http://logging.apache.org/log4j/1.2/apidocs/" />
+            <link href="http://commons.apache.org/logging/apidocs/" />
+            <link href="http://bcel.sourceforge.net/docs/" />
+        </javadoc>
+    </target>
+
+</project>

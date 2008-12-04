@@ -2,6 +2,7 @@ package net.sourceforge.importscrubber;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class StatementFormat
 {
     public static final int BREAK_EACH_PACKAGE = 0;
@@ -73,6 +74,7 @@ public class StatementFormat
         identical = new ArrayList(_combineThreshold);
     }
 
+    @SuppressWarnings("unchecked")
     public StringBuffer applyFormat(List list)
     {
         Collections.sort(list, new ImportStatementComparator(_sortJavaLibsHigh));

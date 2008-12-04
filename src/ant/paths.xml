@@ -1,0 +1,6 @@
+<project name="paths">
+    <path id="compile.classpath">
+        <fileset dir="${rt.lib.dir}"> <include name="*.jar"/> </fileset>
+        <fileset dir="${test.lib.dir}"> <include name="*.jar"/> </fileset>
+    </path>
+</project>

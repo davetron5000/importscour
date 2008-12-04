@@ -1,0 +1,16 @@
+<project name="compile">
+    <target name="compile" 
+        description="Compiles all code">
+        <mkdir dir="${classes.dir}" />
+        <depend srcdir="${java.src.dir}"
+            destdir="${classes.dir}"
+            cache="${build.dir}/depcache"
+            closure="yes"/>
+        <javac destdir="${classes.dir}"
+            classpathref="compile.classpath"
+            debug="on">
+            <src path="${java.src.dir}"/>
+            <compilerarg line="-Xlint -Xlint:-serial -Xlint:-path" />
+        </javac>
+    </target>
+</project>

@@ -1,0 +1,45 @@
+<project name="test">
+
+    <path id="test.compile.classpath">
+        <path refid="compile.classpath" />
+        <pathelement location="${classes.dir}" />
+    </path>
+
+    <path id="test.classpath">
+        <path refid="test.compile.classpath" />
+        <pathelement location="${test.classes.dir}" />
+    </path>
+
+    <taskdef name="testng" 
+        classpathref="compile.classpath"
+        classname="org.testng.TestNGAntTask" />
+
+    <!-- <target name="test" depends="checkstyle,compile.test" -->
+    <target name="test" depends="compile.test"
+        description="Runs tests">
+        <delete file="${testng.failed.xml}" />
+        <testng
+            sourcedir="${test.java.src.dir}"
+            classpathref="test.classpath"
+            parallel="tests"
+            threadCount="10"
+            outputdir="${test.output.dir}"
+            >
+            <classfileset dir="${test.classes.dir}" />
+        </testng>
+    </target>
+
+    <target name="compile.test" depends="compile">
+        <mkdir dir="${test.classes.dir}" />
+        <depend srcdir="${test.java.src.dir}"
+            destdir="${test.classes.dir}"
+            cache="${build.dir}/depcache"
+            closure="yes"/>
+        <javac destdir="${test.classes.dir}"
+            classpathref="test.compile.classpath"
+            debug="on">
+            <src path="${test.java.src.dir}"/>
+            <compilerarg line="-Xlint -Xlint:-serial -Xlint:-path" />
+        </javac>
+    </target>
+</project>

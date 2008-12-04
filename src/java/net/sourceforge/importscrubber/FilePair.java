@@ -49,6 +49,7 @@ public class FilePair
         return _sourceFile;
     }
 
+    @SuppressWarnings("unchecked")
     public ListIterator getClassFiles()
     {
         List files = new ArrayList();

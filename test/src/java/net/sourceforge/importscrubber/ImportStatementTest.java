@@ -68,6 +68,8 @@ public class ImportStatementTest extends TestCase {
             // cool
         }
     }
+
+    @SuppressWarnings("unchecked")
     public void testHashcode() {
         ImportStatement stmtBar = new ImportStatement(BAR_CLASS);
         ImportStatement stmtBaz = new ImportStatement(BUZ_CLASS);

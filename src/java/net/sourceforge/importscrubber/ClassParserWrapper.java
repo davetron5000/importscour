@@ -169,6 +169,7 @@ public class ClassParserWrapper
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void parse(File file, IReferenceFoundListener aListener) throws IOException, FileNotFoundException
     {
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));

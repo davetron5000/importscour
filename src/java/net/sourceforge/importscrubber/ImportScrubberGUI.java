@@ -414,6 +414,7 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener
             super();
         }
 
+        @SuppressWarnings("unchecked")
         public void addElement(Object o)
         {
             if (!contents.containsKey(o)) {

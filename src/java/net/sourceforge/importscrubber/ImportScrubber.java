@@ -75,6 +75,7 @@ public class ImportScrubber
     }
 
     // Returns number of files to work on, allows getFiles to be called just once.
+    @SuppressWarnings("unchecked")
     public int buildTasks(Iterator iter) throws IOException
     {
         while (iter.hasNext()) {

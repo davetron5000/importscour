@@ -1,0 +1,12 @@
+<project name="checkstyle">
+    <taskdef resource="checkstyletask.properties"
+        classpath="${test.lib.dir}/checkstyle-all-4.4.jar" />
+    <target name="checkstyle" depends="compile">
+        <checkstyle 
+            config="${conf.dir}/checkstyle.xml"
+            classpathref="compile.classpath"
+            >
+            <fileset dir="${java.src.dir}" includes="**/*.java" />
+        </checkstyle>
+    </target>
+</project>

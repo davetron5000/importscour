@@ -1,0 +1,19 @@
+<project name="importscrubber" default="compile" basedir=".">
+
+    <property environment="env" />
+    <property file="local.build.properties" />
+    <property file="build.properties" />
+
+    <import file="${ant.src.dir}/paths.xml" />
+
+    <target name="clean"
+        description="Remove all generated targets">
+        <delete dir="${build.dir}" />
+    </target>
+
+    <import file="${ant.src.dir}/compile.xml" />
+    <import file="${ant.src.dir}/javadoc.xml" />
+    <import file="${ant.src.dir}/test.xml" />
+    <import file="${ant.src.dir}/checkstyle.xml" />
+
+</project>

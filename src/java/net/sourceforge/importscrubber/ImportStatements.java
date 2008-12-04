@@ -12,6 +12,7 @@ public class ImportStatements
     public static final String MARKER = "import";
     private List stmts = new ArrayList();
 
+    @SuppressWarnings("unchecked")
     public void add(String candidateString)
     {
 		ImportStatement candidate = new ImportStatement(candidateString);
