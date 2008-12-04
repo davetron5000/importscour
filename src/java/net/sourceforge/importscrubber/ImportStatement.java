@@ -91,3 +91,4 @@ public class ImportStatement implements Comparable
         return fqClassName.toLowerCase().compareTo(otherImport.getFullyQualifiedClassName().toLowerCase());
     }
 }
+

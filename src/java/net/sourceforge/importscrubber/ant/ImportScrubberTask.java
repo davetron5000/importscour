@@ -1,10 +1,14 @@
 package net.sourceforge.importscrubber.ant;
 
 import java.io.File;
+
+import java.util.Iterator;
+
 import net.sourceforge.importscrubber.ImportScrubber;
 import net.sourceforge.importscrubber.IProgressMonitor;
 import net.sourceforge.importscrubber.ScrubTask;
 import net.sourceforge.importscrubber.StatementFormat;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
