@@ -1,18 +1,16 @@
 package test.net.sourceforge.importscrubber;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import java.io.File;
 import java.util.Iterator;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import net.sourceforge.importscrubber.FilePair;
 
-public class FilePairTest extends TestCase {
-    public FilePairTest(String aName) {
-        super(aName);
-    }
-    public static Test suite() {
-        return new TestSuite(FilePairTest.class);
-    }
+import static org.testng.AssertJUnit.*;
+
+public class FilePairTest {
+
+    @Test
     public void testBasic() {
         File a = new File("c:\\");
         File b = new File("d:\\");

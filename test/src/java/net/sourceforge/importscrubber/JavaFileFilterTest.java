@@ -1,22 +1,26 @@
 package test.net.sourceforge.importscrubber;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import java.io.File;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import net.sourceforge.importscrubber.JavaFileFilter;
+import static org.testng.AssertJUnit.*;
 
-public class JavaFileFilterTest extends TestCase {
-    public JavaFileFilterTest(String aName) {
-        super(aName);
-    }
-    public static Test suite() {
-        return new TestSuite(JavaFileFilterTest.class);
-    }
-    public void testBasic() {
+public class JavaFileFilterTest {
+    @Test
+    public void testFile() {
         JavaFileFilter f = new JavaFileFilter();
-        assertTrue(f.accept(new File("d:\\data\\importscrubber\\etc"), 
-                            "FunctionalTest.java"));
-        assertTrue(!f.accept(new File("d:\\data\\importscrubber\\etc"), 
-                             "Foo.java"));
+        assertTrue(f.accept(new File("src/java/net/sourceforge/importscrubber"), 
+                            "ImportScrubber.java"));
+        assertTrue(!f.accept(new File("src/java/net/sourceforge/importscrubber"), 
+                            "Foobar.txt"));
+    }
+    @Test
+    public void testDirs() {
+        JavaFileFilter f = new JavaFileFilter();
+        assertTrue(f.accept(new File("src/java/net/sourceforge/importscrubber"), 
+                            "ant"));
+        assertTrue(!f.accept(new File("src/java/net/sourceforge/importscrubber"), 
+                            "foobar"));
     }
 }

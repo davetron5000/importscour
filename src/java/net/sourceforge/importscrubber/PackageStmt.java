@@ -37,6 +37,7 @@ public class PackageStmt
             int firstSpace = this.stmt.indexOf(" ") + 1;
             int semiColon = this.stmt.indexOf(";");
             myPkg = this.stmt.substring(firstSpace, semiColon);
+
         } else {
             myPkg = null;
         }
