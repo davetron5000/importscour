@@ -1,8 +1,12 @@
 <project name="javadoc">
+    <path id="javadoc.classpath">
+        <path refid="compile.classpath" />
+        <pathelement location="${ant.home}/lib/ant.jar" />
+    </path>
     <target name="javadoc" description="Generates Javadoc">
         <javadoc sourcepath="${java.src.dir}"
             destdir="${javadoc.dir}"
-            classpathref="compile.classpath">
+            classpathref="javadoc.classpath">
             <link href="http://java.sun.com/j2se/1.5/docs/api/" />
             <link href="http://java.sun.com/javaee/5/docs/api/" />
             <link href="http://logging.apache.org/log4j/1.2/apidocs/" />
