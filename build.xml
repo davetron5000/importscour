@@ -15,5 +15,6 @@
     <import file="${ant.src.dir}/javadoc.xml" />
     <import file="${ant.src.dir}/test.xml" />
     <import file="${ant.src.dir}/checkstyle.xml" />
+    <import file="${ant.src.dir}/run.xml" />
 
 </project>
