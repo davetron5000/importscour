@@ -6,16 +6,60 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Iterator;
 
 /**
- * This class encapsulates the source & class files
+ * This class encapsulates the source and class files
  */
 public class FilePair
 {
 
+    private File _sourceFile;
+    private File _classFile;
+
     /**
-     * A filter which only accepts inner classes.
+     * @param sourceFile the source file
+     * @param classFile the matching class file
+     */
+    public FilePair(File sourceFile, File classFile)
+    {
+        _sourceFile = sourceFile;
+        _classFile = classFile;
+    }
+
+    public File getSourceFile() { return _sourceFile; }
+
+    /** Returns all class files relevant to the source file of this pair
+     */
+    public Iterator<File> getClassFiles()
+    {
+        List<File> files = new ArrayList<File>();
+        files.add(_classFile);
+        if (_classFile.getParent() != null) {
+            File dir = new File(_classFile.getParent());
+            files.addAll(Arrays.asList(dir.listFiles(new InnerClassFilter())));
+        }
+        return files.iterator();
+    }
+
+    public int hashCode() { return getSourceFile().hashCode(); }
+
+    public boolean equals(Object o)
+    {
+        if (o == this)
+            return true;
+        if (o == null)
+            return false;
+        if (!o.getClass().getName().equals(getClass().getName()))
+            return false;
+
+        return ((FilePair)o).getSourceFile().compareTo(getSourceFile()) == 0;
+    }
+
+    public String toString() { return getSourceFile().getAbsolutePath(); }
+
+    /**
+     * A filter which only accepts inner classes of {@link #_className}.
      */
     private class InnerClassFilter implements FilenameFilter
     {
@@ -30,51 +74,5 @@ public class FilePair
             className = className.substring(0, className.indexOf("."));
             return name.startsWith(className);
         }
-    }
-    private File _sourceFile;
-    private File _classFile;
-
-    /**
-     * 
-     * @param sourceFile
-     * @param classFile
-     */
-    public FilePair(File sourceFile, File classFile)
-    {
-        _sourceFile = sourceFile;
-        _classFile = classFile;
-    }
-
-    public File getSourceFile()
-    {
-        return _sourceFile;
-    }
-
-    @SuppressWarnings("unchecked")
-    public ListIterator getClassFiles()
-    {
-        List files = new ArrayList();
-        files.add(_classFile);
-        if (_classFile.getParent() != null) {
-            File dir = new File(_classFile.getParent());
-            files.addAll(Arrays.asList(dir.listFiles(new InnerClassFilter())));
-        }
-        return files.listIterator();
-    }
-
-    public int hashCode()
-    {
-        return _sourceFile.hashCode();
-    }
-
-    public boolean equals(Object o)
-    {
-        return o instanceof FilePair
-               && ((FilePair)o).getSourceFile().compareTo(_sourceFile) == 0;
-    }
-
-    public String toString()
-    {
-        return _sourceFile.getAbsolutePath();
     }
 }

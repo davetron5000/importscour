@@ -13,6 +13,8 @@ import java.util.NoSuchElementException;
 // that kind of load very poorly).  so since our only concern is allowing the GUI
 // to update as files are found, this is just as effective -- and simpler.
 
+/** Selects files to process based on the ability to find the source file and it's associated class file.
+ */
 public class FileChooser implements Iterator
 {
     private String _sourceRoot, _classRoot;
@@ -20,10 +22,9 @@ public class FileChooser implements Iterator
     // pre-computed for efficiency
     int relStart;
 
-    private LinkedList possibles = new LinkedList();
+    private LinkedList<String> possibles = new LinkedList<String>();
     private FilePair nextFp;
 
-    @SuppressWarnings("unchecked")
     public FileChooser(String sourceRoot, String classRoot, boolean recurse) throws IOException
     {
         File file = new File(sourceRoot);
