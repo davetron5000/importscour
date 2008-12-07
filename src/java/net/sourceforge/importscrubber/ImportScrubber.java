@@ -15,11 +15,15 @@ public class ImportScrubber
 {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static boolean DEBUG = false;
-    private FileChooser _fileChooser;
+    private Iterator<FilePair> _filesIterator;
     private List<ScrubTask> _tasks = new ArrayList<ScrubTask>();
     private StatementFormat _format;
 	private String _encoding;
 
+    /** Create an ImportScrubber using the given encoding for reading source files.
+     * @param encoding the character encoding string, e.g. "UTF-8".  Null means to use the native encoding for the platform on which this
+     * is run.
+     */
 	public ImportScrubber(String encoding)
 	{
 		_encoding = encoding;
@@ -27,7 +31,7 @@ public class ImportScrubber
 
     public void setFileRoot(String fileName, String classRoot, boolean recurse) throws IOException
     {
-        _fileChooser = new FileChooser(fileName, classRoot, recurse);
+        _filesIterator = new FileChooser(fileName, classRoot, recurse);
     }
 
     public void setFormat(StatementFormat format)
@@ -52,7 +56,7 @@ public class ImportScrubber
 
     public Iterator<FilePair> getFilesIterator()
     {
-        return _fileChooser;
+        return _filesIterator;
     }
 
     /** Returns number of files to work on, allows getFiles to be called just once.

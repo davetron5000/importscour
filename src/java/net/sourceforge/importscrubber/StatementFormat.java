@@ -12,13 +12,15 @@ import java.util.ResourceBundle;
 @SuppressWarnings("unchecked")
 public class StatementFormat
 {
+    /** Insert a break after a group of imports from the same package */
     public static final int BREAK_EACH_PACKAGE = 0;
+    /** Insert no additional breaks in the import statement section */
     public static final int BREAK_NONE = 1;
 
     private boolean _sortJavaLibsHigh;
     private int _breakStyle;
     private int _combineThreshold;
-    private boolean _thresholdStandardOnly; // true if threshold should only apply to standard libraries
+    private boolean _thresholdStandardOnly; 
     private List identical; // for applyFormat -- stored here so we avoid re-allocating each time
 
     /** Create a new StatementFormat.
@@ -34,7 +36,35 @@ public class StatementFormat
         _breakStyle = breakStyle;
         _combineThreshold = combineThreshold;
         _thresholdStandardOnly = thresholdStandardOnly;
+
         identical = new ArrayList(_combineThreshold);
+    }
+
+    public String toString()
+    {
+        StringBuilder b = new StringBuilder();
+        b.append(getClass().getName());
+        b.append(" {\n");
+
+        b.append("\tsortJavaLibsHigh = ");
+        b.append(_sortJavaLibsHigh);
+        b.append(",\n");
+
+        b.append("\tbreakStyle = ");
+        b.append(_breakStyle);
+        b.append(",\n");
+
+        b.append("\tcombineThreshold = ");
+        b.append(_combineThreshold);
+        b.append(",\n");
+
+        b.append("\tthresholdStandardOnly = ");
+        b.append(_thresholdStandardOnly);
+        b.append("\n");
+
+        b.append("};");
+
+        return b.toString();
     }
 
     public StringBuffer applyFormat(List<ImportStatement> list)
