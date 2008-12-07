@@ -8,68 +8,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/** Controls how the block of import statements should be formatted */
 @SuppressWarnings("unchecked")
 public class StatementFormat
 {
     public static final int BREAK_EACH_PACKAGE = 0;
     public static final int BREAK_NONE = 1;
-
-    private static List _formats = new ArrayList(2);
-
-    static {
-        ResourceBundle res = ResourceBundle.getBundle("net.sourceforge.importscrubber.Resources");
-        _formats.add(res.getString(Resources.BREAK_EACH_PACKAGE));
-        _formats.add(res.getString(Resources.BREAK_NONE));
-    }
-
-    public static Object keyToValue(int key)
-    {
-        return _formats.get(key);
-    }
-    public static int valueToKey(Object value)
-    {
-        return _formats.indexOf(value);
-    }
-
-    public static Iterator formatIterator()
-    {
-        return _formats.iterator();
-    }
-
-    // get a description of args understood by getFormat
-    public static String getUsage()
-    {
-        return   "  -sortJavaLibsHigh       : place 'import java.*' statements at the\n"  
-               + "                            top [default: off]\n"  
-               + "  -combineThreshold <int> : import * from a package when MORE THAN this\n"  
-               + "                            number of imports are found [default: 0 = off]\n"  
-               + "  -thresholdStandardOnly  : apply combineThreshold only to java standard\n"   
-               + "                            library; other packages will continue to import\n"  
-               + "                            individual classes no matter how many are\n"  
-               + "                            used [default: off]\n"  
-               + "  -breakEachPackage       : linebreak after the imports from each\n"  
-               + "                            package [default: off]\n"  ;
-    }
-
-    // arg parsing done here to make it easier for others to add new features
-    public static StatementFormat getFormat(String[] args)
-    {
-        int breakStyle = BREAK_NONE;
-        int combineThreshold = 0;
-        boolean sortJavaLibsHigh = ImportScrubber.argExists("sortjavalibshigh", args);
-        boolean thresholdStandardOnly = ImportScrubber.argExists("thresholdStandardOnly", args);
-        if (ImportScrubber.argExists("combineThreshold", args)) {
-            combineThreshold = new Integer(ImportScrubber.findArg("combineThreshold", args)).intValue();
-        }
-        if (ImportScrubber.argExists("breakEachPackage", args)) {
-            breakStyle = BREAK_EACH_PACKAGE;
-        }
-
-        return new StatementFormat(sortJavaLibsHigh, breakStyle, combineThreshold, thresholdStandardOnly);
-    }
-
-    //
-    // the actual format stuff
 
     private boolean _sortJavaLibsHigh;
     private int _breakStyle;
@@ -86,15 +30,14 @@ public class StatementFormat
         identical = new ArrayList(_combineThreshold);
     }
 
-    @SuppressWarnings("unchecked")
-    public StringBuffer applyFormat(List list)
+    public StringBuffer applyFormat(List<ImportStatement> list)
     {
         Collections.sort(list, new ImportStatementComparator(_sortJavaLibsHigh));
 
         // pre-process the threshold requirement
         if (_combineThreshold > 0) {
-            List oldList = list;
-            list = new ArrayList();
+            List<ImportStatement> oldList = list;
+            list = new ArrayList<ImportStatement>();
             String lastPackage = null;
             identical.clear();
             for (Iterator i = oldList.iterator(); i.hasNext(); ) {

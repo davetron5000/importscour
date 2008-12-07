@@ -39,7 +39,7 @@ public class FileChooser implements Iterator<FilePair>
         _sourceRoot = getCanonical(sourceRoot,false);
         _classRoot = getCanonical(classRoot,true);
 
-        sourceFileDirectoryNameLength = ImportScrubber.getDirectory(_sourceRoot).length();
+        sourceFileDirectoryNameLength = getDirectory(_sourceRoot).length();
 
         possibles.add(_sourceRoot);
     }
@@ -74,6 +74,16 @@ public class FileChooser implements Iterator<FilePair>
         return fp;
     }
 
+    private String getDirectory(String fileName)
+    {
+        File f = new File(fileName);
+        if (f.isDirectory()) {
+            return fileName;
+        } else {
+            return f.getParent();
+        }
+    }
+
     private String getCanonical(String path, boolean shouldBeDirectory)
         throws IOException
     {
@@ -96,7 +106,7 @@ public class FileChooser implements Iterator<FilePair>
             if (_recurse) {
                 String[] entries = tmp.list(new JavaFileFilter());
                 for (int i = 0; i < entries.length; i++) {
-                    possibles.add(s + ImportScrubber.FILE_SEPARATOR + entries[i]);
+                    possibles.add(s + File.separator + entries[i]);
                 }
             }
             return nextPossible();
@@ -113,7 +123,7 @@ public class FileChooser implements Iterator<FilePair>
         String relativeSourceFilename = source.getParent().substring(sourceFileDirectoryNameLength);
 
         String cfilename = source.getName().substring(0, source.getName().length() - 5) + ".class";
-        String classfilename = _classRoot + relativeSourceFilename + ImportScrubber.FILE_SEPARATOR + cfilename;
+        String classfilename = _classRoot + relativeSourceFilename + File.separator + cfilename;
         File classfile = new File(classfilename);
         if(classfile.exists()) {
             return new FilePair(source, classfile);

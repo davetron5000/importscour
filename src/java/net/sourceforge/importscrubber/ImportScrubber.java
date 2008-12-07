@@ -13,16 +13,6 @@ import java.util.ListIterator;
  */
 public class ImportScrubber
 {
-    public static final String START_DIRECTORY_KEY = "importscrubber.startDir";
-    public static final String CLASS_DIRECTORY_KEY = "importscrubber.classDir";
-    public static final String RECURSE = "importscrubber.recurse";
-    public static final String SORT_STD_HIGH = "importscrubber.sortStdHigh";
-    public static final String SYNC_CLASS_TO_SOURCE = "importscrubber.syncClassToSource";
-    public static final String THRESHOLD = "importscrubber.threshold";
-    public static final String THRESHOLD_STD_ONLY = "importscrubber.thresholdStdOnly";
-    public static final String BREAK_STYLE = "importscrubber.breakStyle";
-
-    public static final String FILE_SEPARATOR = System.getProperty("file.separator");
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static boolean DEBUG = false;
     private FileChooser _fileChooser;
@@ -40,6 +30,7 @@ public class ImportScrubber
         _fileChooser = new FileChooser(fileName, classRoot, recurse);
     }
 
+    /*
     public static String getDirectory(String fileName)
     {
         File f = new File(fileName);
@@ -49,6 +40,7 @@ public class ImportScrubber
             return f.getParent();
         }
     }
+    */
 
     public void setFormat(StatementFormat format)
     {
@@ -98,13 +90,9 @@ public class ImportScrubber
         _tasks.clear();
     }
 
+    /*
     public static void main(String[] args)
     {
-        if (argExists("g",args)) {
-            new ImportScrubberGUI();
-            return;
-        }
-
 		String encoding = null;
 		if (argExists("encoding", args)) {
 			encoding = findArg("encoding", args);
@@ -148,39 +136,5 @@ public class ImportScrubber
             e.printStackTrace();
         }
     }
-
-    public static boolean argExists(String argFlag, String[] args)
-    {
-        for (int i=0; i<args.length; i++) {
-            if (args[i].equalsIgnoreCase("-"+argFlag)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static String findArg(String argFlag, String[] args)
-    {
-        for (int i=0; i<args.length; i++) {
-            if (args[i].equalsIgnoreCase("-"+argFlag)) {
-                return args[i+1];
-            }
-        }
-        throw new IllegalArgumentException("Couldn't find " + argFlag);
-    }
-
-    private static void usage()
-    {
-        System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber" + LINE_SEPARATOR
-                           + "-g" + LINE_SEPARATOR
-                           + "-root <dir|file>" + LINE_SEPARATOR
-                           + "[-classroot <dir>]" + LINE_SEPARATOR
-                           + "[-recurse] " + LINE_SEPARATOR
-                           + "[-encoding charsetname] [formatargs]" + LINE_SEPARATOR + LINE_SEPARATOR
-                           + "formatargs:" + LINE_SEPARATOR
-                           + StatementFormat.getUsage());
-        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber \\\n\t-root /home/me/myproject/src \\\n\t-recurse");
-        System.out.println(LINE_SEPARATOR + "OR, TO USE THE GUI:" + LINE_SEPARATOR);
-        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -g");
-    }
+    */
 }

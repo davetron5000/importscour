@@ -10,9 +10,8 @@ import java.util.List;
 public class ImportStatements
 {
     public static final String MARKER = "import";
-    private List stmts = new ArrayList();
+    private List<ImportStatement> stmts = new ArrayList<ImportStatement>();
 
-    @SuppressWarnings("unchecked")
     public void add(String candidateString)
     {
 		ImportStatement candidate = new ImportStatement(candidateString);

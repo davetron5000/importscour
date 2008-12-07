@@ -10,7 +10,7 @@ public class JavaFileFilter implements FilenameFilter
 {
     public boolean accept(File dir, String name)
     {
-        File file = new File(dir + ImportScrubber.FILE_SEPARATOR + name);
+        File file = new File(dir + File.separator + name);
         if (file.isDirectory() || name.endsWith(".java")) {
             return true;
         }
