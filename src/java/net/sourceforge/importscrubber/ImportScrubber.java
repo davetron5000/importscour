@@ -133,14 +133,17 @@ public class ImportScrubber
                 String classesRootStr= findArg( "classRoot", args );
                 scrubber.setFileRoot(root, classesRootStr, recurse);
             }  else {
+                System.out.println("No classRoot specified; assuming " + getDirectory(root));
                 scrubber.setFileRoot(root, getDirectory(root), recurse);
             }
 
             scrubber.setFormat(format);
             System.out.println("Building tasks");
             scrubber.buildTasks(scrubber.getFilesIterator());
-            scrubber.runTasks(new ConsoleProgressMonitor());
+            ConsoleProgressMonitor consoleMonitor = new ConsoleProgressMonitor();
+            scrubber.runTasks(consoleMonitor);
             System.out.println(LINE_SEPARATOR + "All done!");
+            System.out.println(consoleMonitor.getFilesProcessed() + " files processed");
         } catch (Exception e) {
             e.printStackTrace();
         }
