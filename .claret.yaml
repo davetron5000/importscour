@@ -1,0 +1,32 @@
+--- !ruby/object:Claret::Project 
+items: 
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 1
+  name: Create new command line interface
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 2
+  name: put dependent jars under ivy
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 3
+  name: refactor some filth
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 4
+  name: better test cases for better coverage
+name: Import Scrubber
+next_id: 5
