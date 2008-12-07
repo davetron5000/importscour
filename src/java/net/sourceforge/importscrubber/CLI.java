@@ -15,11 +15,11 @@ import java.util.Properties;
  */
 public class CLI
 {
-    private static final String PROPERTIES_ENVIRONMENT_VARIABLE = "IMPORTSCRUBBER_PROPERTIES";
-    private static final String PROPNAME_JAVA_LIBS_HIGH = "importscrubber.javalibshigh";
-    private static final String PROPNAME_BREAK_STYLE = "importscrubber.breakstyle";
-    private static final String PROPNAME_COMBINE_THRESHOLD = "importscrubber.combinethreshold";
-    private static final String PROPNAME_THRESHOLD_STANDARD = "importscrubber.threasholdstandard";
+    private static final String PROPERTIES_ENVIRONMENT_VARIABLE = "IMPORTSCOUR_PROPERTIES";
+    private static final String PROPNAME_JAVA_LIBS_HIGH = "importscour.javalibshigh";
+    private static final String PROPNAME_BREAK_STYLE = "importscour.breakstyle";
+    private static final String PROPNAME_COMBINE_THRESHOLD = "importscour.combinethreshold";
+    private static final String PROPNAME_THRESHOLD_STANDARD = "importscour.threasholdstandard";
     private CLI() {}
 
     /** Runs the CLI version of ImportScrubber.
@@ -107,7 +107,7 @@ public class CLI
         }
         else
         {
-            propertiesFileName = System.getProperty("user.home") + File.separator + ".importscrubber.properties";
+            propertiesFileName = System.getProperty("user.home") + File.separator + ".importscour.properties";
             failIfNoExist = false;
         }
 

@@ -2,7 +2,7 @@
 
 This is my fork of [ImportScrubber](http://importscrubber.sourceforge.net) that will help me deal with, once and for all, the battle between star imports (my side) and explicit imports (which I find useless and retarded).
 
-This should allow me to configure ImportScrubber to run as a Git hook with local configuration so I can put star imports in my code to get things working and then have git just convert that to the styleof the project/team in which I'm working.
+This should allow me to create a Git hook to fix the imports on checkin (so I can sanely use star imports while coding, but check in pedantic explicit imports for someone's OCD).
 
 # Usage
 
@@ -24,10 +24,10 @@ Here, the files are relative paths from the source root.  Each of them will be s
 
 There are four properties that control the behavior of ImportScour:
 
-* `importscrubber.javalibshigh` - if "true", `java.*` import statements will precede all others.  If "false", everything is sorted by package name.  **Default is true**
-* `importscrubber.breakstyle` - if "package", a line break is added between groups of import statements from the same package.  If "none", no line breaks are added.  **Default is "package"**
-* `importscrubber.combinethreshold` - The threshold at which specific imports are abandoned for a package and a star import is used.  "0" means never use star imports.  This is the default.
-* `importscrubber.threasholdstandard` - If "true", the `importscrubber.combinethreshold` setting only applies to <tt>java.*</tt> type classes.
+* `importscour.javalibshigh` - if "true", `java.*` import statements will precede all others.  If "false", everything is sorted by package name.  **Default is true**
+* `importscour.breakstyle` - if "package", a line break is added between groups of import statements from the same package.  If "none", no line breaks are added.  **Default is "package"**
+* `importscour.combinethreshold` - The threshold at which specific imports are abandoned for a package and a star import is used.  "0" means never use star imports.  This is the default.
+* `importscour.threasholdstandard` - If "true", the `importscour.combinethreshold` setting only applies to <tt>java.*</tt> type classes.
 
 How these get values is dependent on a few things.
 
@@ -35,13 +35,13 @@ First, you can override the defaults by specifying the above properties as syste
 
 ## Locating the Properties File
 
-By default, the code will look for a file named `.importscrubber.properties` in your home directory (as stored in the system property `user.home`).  If you set the environment variable IMPORTSCRUBBER_PROPERTIES to the location of the file, this will be used instead.
+By default, the code will look for a file named `.importscour.properties` in your home directory (as stored in the system property `user.home`).  If you set the environment variable IMPORTSCOUR_PROPERTIES to the location of the file, this will be used instead.
 
 ## Todo
 
-* Create new command line interface
 * put dependent jars under ivy
 * better test cases for better coverage
 * Remove ImportStatement.DEBUG in favor of real logging
 * Allow system properties to override rc file
-* Rename "Scrubber" to "Scour"
+* Create git hook
+* Devise means by which certain files can be skipped

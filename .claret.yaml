@@ -5,8 +5,10 @@ items:
 
   dependents: []
 
+  finish_date: &id001 2008-12-07 17:11:35.811023 -05:00
   id: 1
   name: Create new command line interface
+  start_date: *id001
 - !ruby/object:Claret::Task 
   contributes_to: []
 
@@ -14,13 +16,6 @@ items:
 
   id: 2
   name: put dependent jars under ivy
-- !ruby/object:Claret::Task 
-  contributes_to: []
-
-  dependents: []
-
-  id: 3
-  name: refactor some filth
 - !ruby/object:Claret::Task 
   contributes_to: []
 
@@ -47,7 +42,23 @@ items:
 
   dependents: []
 
+  finish_date: &id002 2008-12-07 17:15:11.997493 -05:00
   id: 7
   name: Rename 'scrubber' to 'scour' wherever appropriate
+  start_date: *id002
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 8
+  name: Create git hook
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 9
+  name: Devise means by which certain files can be skipped
 name: Import Scrubber
-next_id: 8
+next_id: 10
