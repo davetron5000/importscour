@@ -34,6 +34,16 @@ public class ImportScrubber
         _filesIterator = new FileChooser(fileName, classRoot, recurse);
     }
 
+    public void setFilesToProcess(String sourceRoot, String classRoot, List<String> files)
+    {
+        List<FilePair> filePairs = new ArrayList<FilePair>(files.size());
+        for (String sourceFile: files)
+        {
+            filePairs.add(new FilePair(sourceRoot,classRoot,sourceFile));
+        }
+        _filesIterator = filePairs.iterator();
+    }
+
     public void setFormat(StatementFormat format)
     {
         _format = format;

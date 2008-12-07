@@ -17,7 +17,7 @@ public class FilePair
     private File _sourceFile;
     private File _classFile;
 
-    /**
+    /** Create a FilePair from files
      * @param sourceFile the source file
      * @param classFile the matching class file
      */
@@ -25,6 +25,22 @@ public class FilePair
     {
         _sourceFile = sourceFile;
         _classFile = classFile;
+    }
+
+    public FilePair(String sourceRoot, String classRoot, String sourceFile)
+    {
+        if (!sourceFile.endsWith(".java"))
+            throw new IllegalArgumentException(sourceFile + " isn't a java source");
+
+        _sourceFile = new File(sourceRoot + File.separator + sourceFile);
+
+        if (!_sourceFile.exists())
+            throw new IllegalArgumentException(_sourceFile + " doesn't exist [sourceRoot=" + sourceRoot + ",classRoot=" + classRoot + "]");
+
+        String className = sourceFile.substring(0,sourceFile.length() - 5) + ".class";
+        _classFile = new File(classRoot + File.separator + className);
+        if (!_classFile.exists())
+            throw new IllegalArgumentException(_classFile + " doesn't exist [sourceRoot=" + sourceRoot + ",classRoot=" + classRoot + "]");
     }
 
     public File getSourceFile() { return _sourceFile; }

@@ -35,6 +35,7 @@ public class CLI
         String classesRoot = args[0];
         String sourceRoot = args[1];
         boolean processAll;
+        List<String> sources = new ArrayList<String>(args.length - 2);
         if (args[2].equals("ALL"))
         {
             System.out.println("Processing all sources we can in " + sourceRoot);
@@ -43,7 +44,7 @@ public class CLI
         else
         {
             processAll = false;
-            List<String> sources = new ArrayList<String>(args.length - 2);
+            sources = new ArrayList<String>(args.length - 2);
             System.out.println("Processing only:");
             for (int i=2;i<args.length; i++)
             {
@@ -52,7 +53,25 @@ public class CLI
             }
         }
         StatementFormat format = createStatementFormat();
+        System.out.println();
         System.out.println(format.toString());
+
+        ImportScrubber scrubber = new ImportScrubber(null);
+        if (processAll)
+        {
+            scrubber.setFileRoot(sourceRoot,classesRoot,true);
+        }
+        else
+        {
+            scrubber.setFilesToProcess(sourceRoot,classesRoot,sources);
+        }
+        scrubber.setFormat(format);
+        scrubber.buildTasks(scrubber.getFilesIterator());
+        ConsoleProgressMonitor consoleMonitor = new ConsoleProgressMonitor();
+        scrubber.runTasks(consoleMonitor);
+        System.out.println();
+        System.out.println("All done!");
+        System.out.println(consoleMonitor.getFilesProcessed() + " files processed");
     }
 
     /** Creates the statement format based on the user's environment and configuration */
