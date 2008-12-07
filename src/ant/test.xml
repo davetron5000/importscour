@@ -10,23 +10,53 @@
         <pathelement location="${test.classes.dir}" />
     </path>
 
+    <path id="emma.classpath">
+        <path refid="compile.classpath" />
+        <pathelement location="${emma.classes.dir}" />
+        <pathelement location="${classes.dir}" />
+        <pathelement location="${test.classes.dir}" />
+    </path>
+
     <taskdef name="testng" 
         classpathref="compile.classpath"
         classname="org.testng.TestNGAntTask" />
+
+    <taskdef resource="emma_ant.properties" classpathref="compile.classpath" />
 
     <!-- <target name="test" depends="checkstyle,compile.test" -->
     <target name="test" depends="compile.test"
         description="Runs tests">
         <delete file="${testng.failed.xml}" />
+        <emma enabled="${emma.enabled}">
+            <instr instrpathref="test.classpath"
+                destdir="${emma.classes.dir}"
+                metadatafile="${emma.coverage.dir}/metadata.emma"
+                merge="true">
+                <filter includes="net.sourceforge.importscrubber.*,net.sourceforge.importscrubber.ant.*" />
+            </instr>
+        </emma>
         <testng
             sourcedir="${test.java.src.dir}"
-            classpathref="test.classpath"
+            classpathref="emma.classpath"
             parallel="tests"
             threadCount="10"
             outputdir="${test.output.dir}"
             >
             <classfileset dir="${test.classes.dir}" />
+            <jvmarg value="-Demma.coverage.out.file=${emma.coverage.dir}/coverage.emma" />
+            <jvmarg value="-Demma.coverage.out.merge=true" />
         </testng>
+
+        <emma enabled="${emma.enabled}">
+            <report sourcepath="${java.src.dir}" >
+                <fileset dir="${emma.coverage.dir}" >
+                    <include name="*.emma" />
+                </fileset>
+
+                <html outfile="${emma.dir}/coverage.html" />
+            </report>
+        </emma>
+
     </target>
 
     <target name="compile.test" depends="compile">
