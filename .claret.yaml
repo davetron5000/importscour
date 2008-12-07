@@ -35,5 +35,19 @@ items:
 
   id: 5
   name: Remove ImportStatement.DEBUG in favor of real logging
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 6
+  name: Allow system properties to override rc file
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 7
+  name: Rename 'scrubber' to 'scour' wherever appropriate
 name: Import Scrubber
-next_id: 6
+next_id: 8
