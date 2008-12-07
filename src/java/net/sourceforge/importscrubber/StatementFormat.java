@@ -21,6 +21,13 @@ public class StatementFormat
     private boolean _thresholdStandardOnly; // true if threshold should only apply to standard libraries
     private List identical; // for applyFormat -- stored here so we avoid re-allocating each time
 
+    /** Create a new StatementFormat.
+     * @param sortJavaLibsHigh if true, java.* packages will be force-sorted to the top of the import statments.
+     * @param breakStyle if {@link #BREAK_EACH_PACKAGE}, an additional linebreak will appear between groups of imports from the same package.  If {@link #BREAK_NONE}, no
+     * additional breaking.
+     * @param combineThreshold if non-zero, the number of imports from a package until a star import is used.  0 means to never use star imports.
+     * @param thresholdStandardOnly if ture, combineThreshold only applies to <tt>java.*</tt> packages
+     */
     public StatementFormat(boolean sortJavaLibsHigh, int breakStyle, int combineThreshold, boolean thresholdStandardOnly)
     {
         _sortJavaLibsHigh = sortJavaLibsHigh;

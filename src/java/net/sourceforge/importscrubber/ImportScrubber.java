@@ -30,18 +30,6 @@ public class ImportScrubber
         _fileChooser = new FileChooser(fileName, classRoot, recurse);
     }
 
-    /*
-    public static String getDirectory(String fileName)
-    {
-        File f = new File(fileName);
-        if (f.isDirectory()) {
-            return fileName;
-        } else {
-            return f.getParent();
-        }
-    }
-    */
-
     public void setFormat(StatementFormat format)
     {
         _format = format;
