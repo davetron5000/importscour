@@ -264,10 +264,10 @@ public class ImportScrubberGUI implements IProgressMonitor, ActionListener
                                                    StatementFormat.valueToKey(formats.getSelectedItem()),
                                                    new Integer(thresholdField.getText()).intValue(),
                                                    thresholdCheckbox.isSelected()));
-            int count = scrubber.buildTasks(new Iterator() {
+            int count = scrubber.buildTasks(new Iterator<FilePair>() {
                                                 Enumeration e = ((UniqueListModel)fileList.getModel()).elements();
-                                                public Object next() {
-                                                    return e.nextElement();
+                                                public FilePair next() {
+                                                    return (FilePair)e.nextElement();
                                                 }
                                                 public boolean hasNext() {
                                                     return e.hasMoreElements();

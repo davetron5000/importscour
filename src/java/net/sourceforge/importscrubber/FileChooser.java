@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 /** Selects files to process based on the ability to find the source file and it's associated class file.
  */
-public class FileChooser implements Iterator
+public class FileChooser implements Iterator<FilePair>
 {
     private String _sourceRoot, _classRoot;
     private boolean _recurse;
@@ -51,7 +51,7 @@ public class FileChooser implements Iterator
     {
         if (nextFp == null) {
             try {
-                nextFp = (FilePair)next();
+                nextFp = next();
             } catch (NoSuchElementException e) {}
         }
         return nextFp != null;
@@ -59,7 +59,7 @@ public class FileChooser implements Iterator
 
     /** Returns the next FilePair.
      */
-    public Object next() throws NoSuchElementException
+    public FilePair next() throws NoSuchElementException
     {
         if (nextFp != null) {
             FilePair f = nextFp;

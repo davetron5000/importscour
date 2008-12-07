@@ -1,3 +1,4 @@
+package net.sourceforge.importscrubber;
 /**
  * This is a place where people put copyright headers - these need to be preserved
  */
@@ -87,4 +88,5 @@ public class FunctionalTest implements Runnable {
 
    public void run() {}
 }
+
 

@@ -26,7 +26,7 @@ public class ImportScrubber
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static boolean DEBUG = false;
     private FileChooser _fileChooser;
-    private List _tasks = new ArrayList();
+    private List<ScrubTask> _tasks = new ArrayList<ScrubTask>();
     private StatementFormat _format;
 	private String _encoding;
 
@@ -70,17 +70,17 @@ public class ImportScrubber
         return _tasks.size();
     }
 
-    public Iterator getFilesIterator()
+    public Iterator<FilePair> getFilesIterator()
     {
         return _fileChooser;
     }
 
-    // Returns number of files to work on, allows getFiles to be called just once.
-    @SuppressWarnings("unchecked")
-    public int buildTasks(Iterator iter) throws IOException
+    /** Returns number of files to work on, allows getFiles to be called just once.
+     */
+    public int buildTasks(Iterator<FilePair> iter) throws IOException
     {
         while (iter.hasNext()) {
-            FilePair pair = (FilePair)iter.next();
+            FilePair pair = iter.next();
             _tasks.add(new ScrubTask(pair, _format, _encoding));
         }
 
