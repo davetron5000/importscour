@@ -170,10 +170,13 @@ public class ImportScrubber
     {
         System.out.println("Usage: java net.sourceforge.importscrubber.ImportScrubber" + LINE_SEPARATOR
                            + "-g" + LINE_SEPARATOR
-                           + "| -root <dir|file> [-classroot <dir>] [-recurse] [-encoding charsetname] [formatargs]" + LINE_SEPARATOR
+                           + "-root <dir|file>" + LINE_SEPARATOR
+                           + "[-classroot <dir>]" + LINE_SEPARATOR
+                           + "[-recurse] " + LINE_SEPARATOR
+                           + "[-encoding charsetname] [formatargs]" + LINE_SEPARATOR + LINE_SEPARATOR
                            + "formatargs:" + LINE_SEPARATOR
                            + StatementFormat.getUsage());
-        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -root /home/me/myproject/src -recurse");
+        System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber \\\n\t-root /home/me/myproject/src \\\n\t-recurse");
         System.out.println(LINE_SEPARATOR + "OR, TO USE THE GUI:" + LINE_SEPARATOR);
         System.out.println("Ex: java net.sourceforge.importscrubber.ImportScrubber -g");
     }
