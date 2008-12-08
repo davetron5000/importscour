@@ -22,6 +22,7 @@ public class CLI
     private static final String PROPNAME_BREAK_STYLE = "importscour.breakstyle";
     private static final String PROPNAME_COMBINE_THRESHOLD = "importscour.combinethreshold";
     private static final String PROPNAME_THRESHOLD_STANDARD = "importscour.threasholdstandard";
+    private static final String PROPNAME_IGNORE_MISSING_CLASSES = "importscour.ignoremissingclasses";
 
     private CLI() {}
 
@@ -51,23 +52,21 @@ public class CLI
         List<String> sources = new ArrayList<String>(args.length - 2);
         if (args[2].equals("ALL"))
         {
-            System.out.println("Processing all sources we can in " + sourceRoot);
             processAll = true;
         }
         else
         {
             processAll = false;
             sources = new ArrayList<String>(args.length - 2);
-            System.out.println("Processing only:");
             for (int i=2;i<args.length; i++)
             {
-                System.out.println("\t" + args[i]);
                 sources.add(args[i]);
             }
         }
-        StatementFormat format = createStatementFormat();
-        System.out.println();
-        System.out.println(format.toString());
+
+        Properties configuration = getConfiguration();
+
+        StatementFormat format = createStatementFormat(configuration);
 
         ImportScrubber scrubber = new ImportScrubber(null);
         if (processAll)
@@ -76,31 +75,31 @@ public class CLI
         }
         else
         {
-            scrubber.setFilesToProcess(sourceRoot,classesRoot,sources);
+            scrubber.setFilesToProcess(sourceRoot,
+                    classesRoot,
+                    sources,
+                    "true".equals(configuration.getProperty(PROPNAME_IGNORE_MISSING_CLASSES)));
         }
         scrubber.setFormat(format);
         scrubber.buildTasks(scrubber.getFilesIterator());
         ConsoleProgressMonitor consoleMonitor = new ConsoleProgressMonitor();
         scrubber.runTasks(consoleMonitor);
-        System.out.println();
-        System.out.println("All done!");
-        System.out.println(consoleMonitor.getFilesProcessed() + " files processed");
+        System.out.println(consoleMonitor.getFilesProcessed() + " files' imports scoured");
     }
 
     /** Creates the statement format based on the user's environment and configuration */
-    private static StatementFormat createStatementFormat()
+    private static StatementFormat createStatementFormat(Properties configuration)
         throws IOException
     {
-        Properties properties = loadProperties();
         return new StatementFormat(
-                "true".equals(properties.getProperty(PROPNAME_JAVA_LIBS_HIGH)),
-                "package".equals(properties.getProperty(PROPNAME_BREAK_STYLE)) ? StatementFormat.BREAK_EACH_PACKAGE : StatementFormat.BREAK_NONE,
-                Integer.parseInt(properties.getProperty(PROPNAME_COMBINE_THRESHOLD)),
-                "true".equals(properties.getProperty(PROPNAME_THRESHOLD_STANDARD))
+                "true".equals(configuration.getProperty(PROPNAME_JAVA_LIBS_HIGH)),
+                "package".equals(configuration.getProperty(PROPNAME_BREAK_STYLE)) ? StatementFormat.BREAK_EACH_PACKAGE : StatementFormat.BREAK_NONE,
+                Integer.parseInt(configuration.getProperty(PROPNAME_COMBINE_THRESHOLD)),
+                "true".equals(configuration.getProperty(PROPNAME_THRESHOLD_STANDARD))
                 );
     }
 
-    private static Properties loadProperties()
+    private static Properties getConfiguration()
         throws IOException
     {
         String propertiesFileName;
@@ -143,6 +142,7 @@ public class CLI
         properties.setProperty(PROPNAME_BREAK_STYLE,System.getProperty(PROPNAME_BREAK_STYLE,"package"));
         properties.setProperty(PROPNAME_COMBINE_THRESHOLD,System.getProperty(PROPNAME_COMBINE_THRESHOLD,"0"));
         properties.setProperty(PROPNAME_THRESHOLD_STANDARD,System.getProperty(PROPNAME_THRESHOLD_STANDARD,"false"));
+        properties.setProperty(PROPNAME_IGNORE_MISSING_CLASSES,System.getProperty(PROPNAME_IGNORE_MISSING_CLASSES,"false"));
         return properties;
     }
 }

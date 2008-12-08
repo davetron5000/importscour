@@ -53,13 +53,15 @@ if ($#java_files >= 0)
 {
     if (&run_and_log_system ($command))
     {
-        die "Problem running '$command' $!\n";
+        print STDERR "Problem running '$command' $!\n";
+        exit -1;
     }
     foreach (@java_files)
     {
         if (&run_and_log_system("git add $_"))
         {
-            die "Problem running 'get add $_' $!\n";
+            print STDERR "Problem running 'get add $_' $!\n";
+            exit -1;
         }
     }
 }

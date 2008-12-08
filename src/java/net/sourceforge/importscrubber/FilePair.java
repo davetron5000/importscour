@@ -30,7 +30,7 @@ public class FilePair
     /** Creates a FilePair for a source file given the source and class roots.
      * @param sourceRoot the root of the source directory
      * @param classRoot the root of the classes directory
-     * @param sourceFile the name of the source file, relative to sourceRoot
+     * @param sourceFile the name of the source file, relative to sourceRoot; must end in .java and exist in sourceRoot
      */
     public FilePair(String sourceRoot, String classRoot, String sourceFile)
     {

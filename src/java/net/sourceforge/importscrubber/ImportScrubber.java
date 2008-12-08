@@ -33,12 +33,26 @@ public class ImportScrubber
         _filesIterator = new FileChooser(fileName, classRoot, recurse);
     }
 
-    public void setFilesToProcess(String sourceRoot, String classRoot, List<String> files)
+    /** Sets the files to process explicitly.
+     * @param sourceRoot the root of the source tree
+     * @param classRoot the root of the class tree
+     * @param files the files, relative to sourceRoot representing the source files to process
+     * @param skipMissingClasses if true, sources with missing classes are skipped.  If false, a missing class causes an exception to be thrown.
+     */
+    public void setFilesToProcess(String sourceRoot, String classRoot, List<String> files, boolean skipMissingClasses)
     {
         List<FilePair> filePairs = new ArrayList<FilePair>(files.size());
         for (String sourceFile: files)
         {
-            filePairs.add(new FilePair(sourceRoot,classRoot,sourceFile));
+            try
+            {
+                filePairs.add(new FilePair(sourceRoot,classRoot,sourceFile));
+            }
+            catch (IllegalArgumentException e)
+            {
+                if (!skipMissingClasses)
+                    throw e;
+            }
         }
         _filesIterator = filePairs.iterator();
     }
@@ -90,52 +104,4 @@ public class ImportScrubber
         }
         _tasks.clear();
     }
-
-    /*
-    public static void main(String[] args)
-    {
-		String encoding = null;
-		if (argExists("encoding", args)) {
-			encoding = findArg("encoding", args);
-		} else {
-			encoding = System.getProperty("file.encoding");
-		}
-
-        if (!argExists("root", args)) {
-            usage();
-            System.exit(0);
-        }
-        String root = findArg("root",args);
-        if (!(new File(root).exists())) {
-            System.out.println("Root: " + root + " does not exist");
-            usage();
-            System.exit(0);
-        }
-        boolean recurse = argExists("recurse", args);
-
-        StatementFormat format = StatementFormat.getFormat(args);
-
-        try {
-            ImportScrubber scrubber = new ImportScrubber(encoding);
-
-            if(argExists("classRoot", args) ) {
-                String classesRootStr= findArg( "classRoot", args );
-                scrubber.setFileRoot(root, classesRootStr, recurse);
-            }  else {
-                System.out.println("No classRoot specified; assuming " + getDirectory(root));
-                scrubber.setFileRoot(root, getDirectory(root), recurse);
-            }
-
-            scrubber.setFormat(format);
-            System.out.println("Building tasks");
-            scrubber.buildTasks(scrubber.getFilesIterator());
-            ConsoleProgressMonitor consoleMonitor = new ConsoleProgressMonitor();
-            scrubber.runTasks(consoleMonitor);
-            System.out.println(LINE_SEPARATOR + "All done!");
-            System.out.println(consoleMonitor.getFilesProcessed() + " files processed");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }

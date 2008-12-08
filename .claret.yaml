@@ -14,13 +14,6 @@ items:
 
   dependents: []
 
-  id: 2
-  name: put dependent jars under ivy
-- !ruby/object:Claret::Task 
-  contributes_to: []
-
-  dependents: []
-
   id: 4
   name: better test cases for better coverage
 - !ruby/object:Claret::Task 
