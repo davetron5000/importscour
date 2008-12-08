@@ -35,6 +35,7 @@ There are four properties that control the behavior of ImportScour:
 * `importscour.breakstyle` - if "package", a line break is added between groups of import statements from the same package.  If "none", no line breaks are added.  **Default is "package"**
 * `importscour.combinethreshold` - The threshold at which specific imports are abandoned for a package and a star import is used.  "0" means never use star imports.  This is the default.
 * `importscour.threasholdstandard` - If "true", the `importscour.combinethreshold` setting only applies to <tt>java.*</tt> type classes.
+* `importscour.ignoremissingclasses` - If "true", if a matching class file cannot be found for a source file, the source file is silently skipped.  If "false", such a condition will cause a fatal error (default "false").
 
 How these get values is dependent on a few things.
 
