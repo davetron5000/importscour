@@ -75,5 +75,10 @@ items:
   id: 11
   name: Create better means of packaging for actual usage
   start_date: *id006
+- !ruby/object:Claret::Task 
+  contributes_to: []
+  dependents: []
+  id: 13
+  name: Make it work with static imports
 name: Import Scrubber
-next_id: 13
+next_id: 14
