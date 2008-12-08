@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 /** Command line interface to {@link ImportScrubber}.
  *
@@ -130,6 +131,12 @@ public class CLI
         {
             properties.load(new FileInputStream(propertiesFile));
         }
+
+        for (Object o: properties.keySet())
+        {
+            propertyOverride(properties,(String)o);
+        }
+
         return properties;
     }
 
@@ -138,11 +145,18 @@ public class CLI
     private static Properties initializeProperties()
     {
         Properties properties = new Properties();
-        properties.setProperty(PROPNAME_JAVA_LIBS_HIGH,System.getProperty(PROPNAME_JAVA_LIBS_HIGH,"true"));
-        properties.setProperty(PROPNAME_BREAK_STYLE,System.getProperty(PROPNAME_BREAK_STYLE,"package"));
-        properties.setProperty(PROPNAME_COMBINE_THRESHOLD,System.getProperty(PROPNAME_COMBINE_THRESHOLD,"0"));
-        properties.setProperty(PROPNAME_THRESHOLD_STANDARD,System.getProperty(PROPNAME_THRESHOLD_STANDARD,"false"));
-        properties.setProperty(PROPNAME_IGNORE_MISSING_CLASSES,System.getProperty(PROPNAME_IGNORE_MISSING_CLASSES,"false"));
+        properties.setProperty(PROPNAME_JAVA_LIBS_HIGH,"true");
+        properties.setProperty(PROPNAME_BREAK_STYLE,"package");
+        properties.setProperty(PROPNAME_COMBINE_THRESHOLD,"0");
+        properties.setProperty(PROPNAME_THRESHOLD_STANDARD,"false");
+        properties.setProperty(PROPNAME_IGNORE_MISSING_CLASSES,"false");
         return properties;
+    }
+
+    private static void propertyOverride(Properties properties, String propertyName)
+    {
+        properties.setProperty(propertyName,
+                System.getProperty(propertyName,
+                    properties.getProperty(propertyName)));
     }
 }

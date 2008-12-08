@@ -1,8 +1,15 @@
 # ImportScour
 
-This is my fork of [ImportScrubber](http://importscrubber.sourceforge.net) that will help me deal with, once and for all, the battle between star imports (my side) and explicit imports (which I find useless and retarded).
+This is my fork of [ImportScrubber](http://importscrubber.sourceforge.net) that will help me deal with my hatred of explicity imports, but the necessity I may have in not using star imports.  This can be used as a Git hook to "fix" imports so that star imports are not being used.
 
-This should allow me to create a Git hook to fix the imports on checkin (so I can sanely use star imports while coding, but check in pedantic explicit imports for someone's OCD).
+Ideally, this could go both ways, however converting a file to all star imports possibly breaks it without some more knowledge of the class, so this is just a one-way street.
+
+# Install
+
+1. Extract .zip file somewhere
+2. Make importscour.sh executable (e.g. chmod +x importscour.sh)
+3. Make sure importscour.sh is in your path
+4. importscour.sh path_to_classes path_to_sources path/relative/to/path_to_sources/File.java...
 
 # Usage
 
@@ -31,7 +38,7 @@ There are four properties that control the behavior of ImportScour:
 
 How these get values is dependent on a few things.
 
-First, you can override the defaults by specifying the above properties as system properties. **These** values can be overridden by a properties file (I realize this is somewhat backwards, but I'll fix it later).
+First, you can override the defaults by specifying the above properties in a properties file (see below for where it's located).  **These** can be overridden by setting them as system properties.
 
 ## Locating the Properties File
 
@@ -55,6 +62,4 @@ Note that for each source file you check in, a class file must exist in the clas
 
 * better test cases for better coverage
 * Remove ImportStatement.DEBUG in favor of real logging
-* Allow system properties to override rc file
 * Devise means by which certain files can be skipped
-* Create option to silence output

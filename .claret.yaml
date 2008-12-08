@@ -28,26 +28,28 @@ items:
 
   dependents: []
 
+  finish_date: &id002 2008-12-07 22:11:50.619413 -05:00
   id: 6
   name: Allow system properties to override rc file
-- !ruby/object:Claret::Task 
-  contributes_to: []
-
-  dependents: []
-
-  finish_date: &id002 2008-12-07 17:15:11.997493 -05:00
-  id: 7
-  name: Rename 'scrubber' to 'scour' wherever appropriate
   start_date: *id002
 - !ruby/object:Claret::Task 
   contributes_to: []
 
   dependents: []
 
-  finish_date: &id003 2008-12-07 19:52:23.264163 -05:00
+  finish_date: &id003 2008-12-07 17:15:11.997493 -05:00
+  id: 7
+  name: Rename 'scrubber' to 'scour' wherever appropriate
+  start_date: *id003
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  finish_date: &id004 2008-12-07 19:52:23.264163 -05:00
   id: 8
   name: Create git hook
-  start_date: *id003
+  start_date: *id004
 - !ruby/object:Claret::Task 
   contributes_to: []
 
@@ -60,25 +62,18 @@ items:
 
   dependents: []
 
-  finish_date: &id004 2008-12-07 21:57:53.491775 -05:00
+  finish_date: &id005 2008-12-07 21:57:53.491775 -05:00
   id: 10
   name: Create configuration option to not fail on sources with no classes
-  start_date: *id004
-- !ruby/object:Claret::Task 
-  contributes_to: []
-
-  dependents: []
-
-  finish_date: &id005 2008-12-07 20:37:39.069892 -05:00
-  id: 11
-  name: Create better means of packaging for actual usage
   start_date: *id005
 - !ruby/object:Claret::Task 
   contributes_to: []
 
   dependents: []
 
-  id: 12
-  name: Create option to silence output
+  finish_date: &id006 2008-12-07 20:37:39.069892 -05:00
+  id: 11
+  name: Create better means of packaging for actual usage
+  start_date: *id006
 name: Import Scrubber
 next_id: 13
