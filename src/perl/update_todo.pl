@@ -10,6 +10,8 @@ while (<README>)
     last if (/## Todo/);
 }
 
+push @lines,"\n";
+
 open (CL,"cl ls -u | cut  -d'	' -f3 | sed \"s/^/\* /\"|") || die "Can't run cl: $!\n";
 
 while (<CL>)

@@ -52,6 +52,7 @@ e.g.
 Note that for each source file you check in, a class file must exist in the classes root, or ImportScour can't run.
 
 ## Todo
+
 * put dependent jars under ivy
 * better test cases for better coverage
 * Remove ImportStatement.DEBUG in favor of real logging
