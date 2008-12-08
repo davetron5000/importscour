@@ -68,7 +68,7 @@ e.g.
 
     git-config --add importscour.srcdir src/java
 
-Note that for each source file you check in, a class file must exist in the classes root, or ImportScour can't run.
+Note that for each source file you check in, a class file must exist in the classes root.  If the class file is missing, ImportScour will (by default) throw an exception and abort your commit.  If you set `importscour.ignoremissingclasses` in your configuration, these sources would be skipped (bypassing the entire thing; just compile before you commit; it's a good practice anyway)
 
 ## Todo
 
