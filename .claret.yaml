@@ -51,8 +51,10 @@ items:
 
   dependents: []
 
+  finish_date: &id003 2008-12-07 19:52:23.264163 -05:00
   id: 8
   name: Create git hook
+  start_date: *id003
 - !ruby/object:Claret::Task 
   contributes_to: []
 
