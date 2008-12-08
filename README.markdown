@@ -52,11 +52,10 @@ e.g.
 Note that for each source file you check in, a class file must exist in the classes root, or ImportScour can't run.
 
 ## Todo
-
 * put dependent jars under ivy
 * better test cases for better coverage
 * Remove ImportStatement.DEBUG in favor of real logging
 * Allow system properties to override rc file
 * Devise means by which certain files can be skipped
 * Create configuration option to not fail on sources with no classes
-* Create better means of packaging for actual usage
+* Create option to silence output

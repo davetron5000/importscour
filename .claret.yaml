@@ -74,7 +74,16 @@ items:
 
   dependents: []
 
+  finish_date: &id004 2008-12-07 20:37:39.069892 -05:00
   id: 11
   name: Create better means of packaging for actual usage
+  start_date: *id004
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 12
+  name: Create option to silence output
 name: Import Scrubber
-next_id: 12
+next_id: 13
