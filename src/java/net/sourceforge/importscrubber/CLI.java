@@ -17,10 +17,12 @@ import java.util.Properties;
 public class CLI
 {
     private static final String PROPERTIES_ENVIRONMENT_VARIABLE = "IMPORTSCOUR_PROPERTIES";
+
     private static final String PROPNAME_JAVA_LIBS_HIGH = "importscour.javalibshigh";
     private static final String PROPNAME_BREAK_STYLE = "importscour.breakstyle";
     private static final String PROPNAME_COMBINE_THRESHOLD = "importscour.combinethreshold";
     private static final String PROPNAME_THRESHOLD_STANDARD = "importscour.threasholdstandard";
+
     private CLI() {}
 
     /** Runs the CLI version of ImportScrubber.

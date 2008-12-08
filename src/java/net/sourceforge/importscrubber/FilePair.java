@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This class encapsulates the source and class files
+ * This class encapsulates the source and class files.
  */
 public class FilePair
 {
@@ -27,6 +27,11 @@ public class FilePair
         _classFile = classFile;
     }
 
+    /** Creates a FilePair for a source file given the source and class roots.
+     * @param sourceRoot the root of the source directory
+     * @param classRoot the root of the classes directory
+     * @param sourceFile the name of the source file, relative to sourceRoot
+     */
     public FilePair(String sourceRoot, String classRoot, String sourceFile)
     {
         if (!sourceFile.endsWith(".java"))
