@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 /** Command line interface to {@link ImportScrubber}.
+ *
  */
 public class CLI
 {

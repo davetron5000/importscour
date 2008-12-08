@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * This class encapsulates the import scrubber controller
+ * This class encapsulates the import scrubber controller.
  */
 public class ImportScrubber
 {

@@ -2,6 +2,7 @@ package net.sourceforge.importscrubber;
 
 /**
  * Encapsulates operations on a class' package statement.
+ *
  */
 public class PackageStmt
 {
@@ -68,6 +69,7 @@ public class PackageStmt
         return buffer;
     }
 }
+
 
 
 
