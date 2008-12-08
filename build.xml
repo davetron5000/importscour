@@ -1,8 +1,14 @@
-<project name="importscrubber" default="compile" basedir=".">
+<project name="importscour" default="compile" basedir=".">
 
     <property environment="env" />
     <property file="local.build.properties" />
     <property file="build.properties" />
+
+    <loadfile property="release.number" srcFile="${src.dir}/release.txt">
+        <filterchain>
+            <striplinebreaks />
+        </filterchain>
+    </loadfile>
 
     <import file="${ant.src.dir}/paths.xml" />
 
@@ -15,6 +21,7 @@
     <import file="${ant.src.dir}/javadoc.xml" />
     <import file="${ant.src.dir}/test.xml" />
     <import file="${ant.src.dir}/checkstyle.xml" />
-    <import file="${ant.src.dir}/run.xml" />
+    <import file="${ant.src.dir}/jar.xml" />
+    <import file="${ant.src.dir}/package.xml" />
 
 </project>

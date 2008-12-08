@@ -1,0 +1,17 @@
+<project name="package">
+    <property name="tar.prefix" value="${ant.project.name}-${release.number}" />
+    <target name="package" 
+        depends="jar"
+        description="Creates a distributable/installable package">
+        <tar 
+            destfile="${build.dir}/${tar.prefix}.tar">
+            <zipfileset dir="${build.dir}" includes="${ant.project.name}.jar" prefix="${tar.prefix}"/>
+            <zipfileset dir="${sh.src.dir}" includes="*.sh" prefix="${tar.prefix}"/>
+            <zipfileset dir="${perl.src.dir}" includes="*" prefix="${tar.prefix}"/>
+            <zipfileset dir="${rt.lib.dir}" includes="*.jar" prefix="${tar.prefix}"/>
+            <zipfileset dir="${basedir}" includes="README.markdown" prefix="${tar.prefix}"/>
+            <zipfileset dir="${basedir}/docs" includes="INSTALL.txt" prefix="${tar.prefix}"/>
+        </tar>
+        <gzip destfile="${build.dir}/${tar.prefix}.tgz" src="${build.dir}/${tar.prefix}.tar" />
+    </target>
+</project>

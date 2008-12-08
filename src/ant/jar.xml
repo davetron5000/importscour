@@ -1,0 +1,10 @@
+<project name="jar">
+    <target name="jar" 
+        depends="compile"
+        description="Creates a Jar">
+        <jar 
+            destfile="${build.dir}/${ant.project.name}.jar"
+            basedir="${classes.dir}"
+            />
+    </target>
+</project>
