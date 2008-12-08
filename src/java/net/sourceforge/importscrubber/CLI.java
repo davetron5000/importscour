@@ -41,6 +41,8 @@ public class CLI
         if (args.length < 3)
         {
             System.err.println("Usage: " + CLI.class.getName() + " classes_root source_root [relative/path/to/JavaFile.java]*");
+            System.err.println("OR");
+            System.err.println("Usage: " + CLI.class.getName() + " classes_root source_root ALL");
             System.exit(-1);
         }
         String classesRoot = args[0];
