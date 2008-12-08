@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+#
+# This runs ImportScour on all java files that are being checked in.
+# To enable this:
+#
+# 1. Make it executable ('natch)
+# 2. Install ImportScour
+# 3. Compile your code
+# 4. set the following in your git config:
+#   * importscour.srcdir - path (relative) to your source
+#   * importscour.classesdir - path (relative) to your classes
+#   * importscour.command - path (relative or full) to the import scour command
+
+$command = "git-diff-index --cached HEAD 2>&1 | sed 's/^:.*	//' | uniq";
+open (FILES,$command . "|") || die "Cannot run '$command': $!\n";
+
+$CONFIG_SRCDIR = "importscour.srcdir";
+$CONFIG_CLASSESDIR = "importscour.classesdir";
+$CONFIG_COMMAND = "importscour.command";
+
+$src_dir = `git config --get $CONFIG_SRCDIR`;
+$classes_dir = `git config --get $CONFIG_CLASSESDIR`;
+$importscour_command = `git config --get $CONFIG_COMMAND`;
+
+if (!$src_dir || !$classes_dir || !$importscour_command)
+{
+    die "You must configure importscour in your git config:\n" 
+    . "\t$CONFIG_SRCDIR     - relative path to your source root\n"
+    . "\t$CONFIG_CLASSESDIR - relative path to your classes root\n"
+    . "\t$CONFIG_COMMAND    - relative or full path to the importscour command\n";
+}
+
+chomp $src_dir;
+chomp $classes_dir;
+chomp $importscour_command;
+
+$src_dir_re = $src_dir . "/";
+
+$command = "$importscour_command $classes_dir $src_dir";
+
+@java_files = ();
+
+foreach (<FILES>)
+{
+    chomp;
+    next if (!(/\.java$/));
+    push @java_files,$_;
+    s/$src_dir_re//g;
+    $command .= " ";
+    $command .= $_;
+}
+if ($#java_files >= 0)
+{
+    if (&run_and_log_system ($command))
+    {
+        die "Problem running '$command' $!\n";
+    }
+    foreach (@java_files)
+    {
+        if (&run_and_log_system("git add $_"))
+        {
+            die "Problem running 'get add $_' $!\n";
+        }
+    }
+}
+
+exit 0;
+
+sub run_and_log_system
+{
+    ($cmd) = @_;
+
+    system $cmd;
+}

@@ -37,11 +37,26 @@ First, you can override the defaults by specifying the above properties as syste
 
 By default, the code will look for a file named `.importscour.properties` in your home directory (as stored in the system property `user.home`).  If you set the environment variable IMPORTSCOUR_PROPERTIES to the location of the file, this will be used instead.
 
+# As a Git Hook
+
+`src/perl/pre-commit` is a Git hook you can use to fix imports on commit.  You must set three Git configuration options:
+
+* `importscour.command` - full path to your ImportScour command
+* `importscour.srcdir` - relative path to your java source root
+* `importscour.classesdir` - relative path to your classes root
+
+e.g.
+
+    git-config --add importscour.srcdir src/java
+
+Note that for each source file you check in, a class file must exist in the classes root, or ImportScour can't run.
+
 ## Todo
 
 * put dependent jars under ivy
 * better test cases for better coverage
 * Remove ImportStatement.DEBUG in favor of real logging
 * Allow system properties to override rc file
-* Create git hook
 * Devise means by which certain files can be skipped
+* Create configuration option to not fail on sources with no classes
+* Create better means of packaging for actual usage

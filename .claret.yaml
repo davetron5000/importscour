@@ -62,5 +62,19 @@ items:
 
   id: 9
   name: Devise means by which certain files can be skipped
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 10
+  name: Create configuration option to not fail on sources with no classes
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 11
+  name: Create better means of packaging for actual usage
 name: Import Scrubber
-next_id: 10
+next_id: 12
