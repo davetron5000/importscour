@@ -14,7 +14,6 @@
     <import file="${ant.src.dir}/javadoc.xml" />
     <import file="${ant.src.dir}/test.xml" />
     <import file="${ant.src.dir}/checkstyle.xml" />
-    <import file="${ant.src.dir}/run.xml" />
     <path id="scrub.classpath">
         <path refid="compile.classpath" />
         <pathelement location="${basedir}/../../build/emma/classes" />

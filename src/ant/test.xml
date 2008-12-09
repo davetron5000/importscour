@@ -35,6 +35,7 @@
                 <filter includes="net.sourceforge.importscrubber.*,net.sourceforge.importscrubber.ant.*" />
             </instr>
         </emma>
+        <!--
         <testng
             sourcedir="${test.java.src.dir}"
             classpathref="emma.classpath"
@@ -46,6 +47,18 @@
             <jvmarg value="-Demma.coverage.out.file=${emma.coverage.dir}/coverage.emma" />
             <jvmarg value="-Demma.coverage.out.merge=true" />
         </testng>
+        -->
+
+        <copy overwrite="true" file="${test.project.src.dir}/${test.source.file}.orig" tofile="${test.project.src.dir}/${test.source.file}" />
+        <ant antfile="${test.project.dir}/build.xml" target="compile" inheritAll="false" />
+        <java
+            classname="net.sourceforge.importscrubber.CLI"
+            classpathref="emma.classpath"
+            >
+            <arg line="${test.project.classes.dir} ${test.project.src.dir} ${test.source.file}" />
+            <jvmarg value="-Demma.coverage.out.file=${emma.coverage.dir}/coverage2.emma" />
+            <jvmarg value="-Demma.coverage.out.merge=true" />
+        </java>
 
         <emma enabled="${emma.enabled}">
             <report sourcepath="${java.src.dir}" >
@@ -56,6 +69,12 @@
                 <html outfile="${emma.dir}/coverage.html" />
             </report>
         </emma>
+        <copy overwrite="true" file="${test.project.src.dir}/${test.source.file}" tofile="${test.project.src.dir}/${test.source.file}.scoured" />
+        <copy overwrite="true" file="${test.project.src.dir}/${test.source.file}.orig" tofile="${test.project.src.dir}/${test.source.file}" />
+        <exec executable="diff" failonerror="true">
+            <arg value="${test.project.src.dir}/${test.source.file}.scoured" />
+            <arg value="${test.project.src.dir}/${test.source.file}.expected" />
+        </exec>
 
     </target>
 

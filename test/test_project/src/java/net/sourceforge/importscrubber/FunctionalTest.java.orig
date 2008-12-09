@@ -15,6 +15,8 @@ import java.util.Map.Entry;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import static java.lang.Math.*;
+
 /**
  * This class encapsulates an piece of code on which to run importscrubber
  */
@@ -29,6 +31,7 @@ public class FunctionalTest implements Runnable {
 
    public class Foo extends JLabel {
       public String getText() {
+         int blah = abs(-45);
          return super.getText();
       }
    }
