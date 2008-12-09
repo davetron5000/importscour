@@ -89,7 +89,9 @@ items:
 
   dependents: []
 
+  finish_date: &id008 2008-12-08 23:54:33.356077 -05:00
   id: 14
   name: check to see if it works with annotations
+  start_date: *id008
 name: Import Scrubber
 next_id: 15

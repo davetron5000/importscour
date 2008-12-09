@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.Map.Entry;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import org.testng.annotations.*;
 
 import static java.lang.Math.*;
 
@@ -85,6 +86,7 @@ public class FunctionalTest implements Runnable {
       return null;
    }
 
+   @Test
    public Component getComp() {
       return null;
    }
