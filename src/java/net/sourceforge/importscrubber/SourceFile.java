@@ -13,6 +13,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
+import java.util.regex.Pattern;
+
 /**
  * Encapsulates operations on the Java source code file
  * 
@@ -27,6 +29,7 @@ public class SourceFile
     private ImportStatements _imports  = new ImportStatements();
     private String _firstCommentHeader;
     private String _secondCommentHeader;
+    private Pattern _staticImportPattern = Pattern.compile("^\\s*import\\s+static\\s+.*");
 
     public SourceFile(File file, String encoding) throws IOException
     {
@@ -54,7 +57,7 @@ public class SourceFile
         while ((currentLine = buff.readLine()) != null) {
             // discard imports
             if (currentLine.startsWith(ImportStatements.MARKER)
-                    && (!currentLine.startsWith(ImportStatements.MARKER + " static")) ) {
+                    && !isStaticImport(currentLine) ) {
                 passedFirstCommentHeader = true;
                 passedSecondCommentHeader = true;
                 continue;
@@ -168,5 +171,15 @@ public class SourceFile
             in = in.substring(ImportScrubber.LINE_SEPARATOR.length());
         }
         return in;
+    }
+
+    private boolean isStaticImport(String line)
+    {
+        boolean match = _staticImportPattern.matcher(line).matches();
+        if (!match && line.contains("static"))
+        {
+            throw new IllegalStateException("'" + line + "' should match our regex");
+        }
+        return match;
     }
 }

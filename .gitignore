@@ -1,3 +1,4 @@
 build
 .*.sw?
 coverage.ec
+test/test_project/src/java/net/sourceforge/importscrubber/FunctionalTest.java.scoured

@@ -35,7 +35,6 @@
                 <filter includes="net.sourceforge.importscrubber.*,net.sourceforge.importscrubber.ant.*" />
             </instr>
         </emma>
-        <!--
         <testng
             sourcedir="${test.java.src.dir}"
             classpathref="emma.classpath"
@@ -47,7 +46,6 @@
             <jvmarg value="-Demma.coverage.out.file=${emma.coverage.dir}/coverage.emma" />
             <jvmarg value="-Demma.coverage.out.merge=true" />
         </testng>
-        -->
 
         <copy overwrite="true" file="${test.project.src.dir}/${test.source.file}.orig" tofile="${test.project.src.dir}/${test.source.file}" />
         <ant antfile="${test.project.dir}/build.xml" target="compile" inheritAll="false" />

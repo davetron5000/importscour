@@ -77,8 +77,19 @@ items:
   start_date: *id006
 - !ruby/object:Claret::Task 
   contributes_to: []
+
   dependents: []
+
+  finish_date: &id007 2008-12-08 20:26:32.661734 -05:00
   id: 13
   name: Make it work with static imports
+  start_date: *id007
+- !ruby/object:Claret::Task 
+  contributes_to: []
+
+  dependents: []
+
+  id: 14
+  name: check to see if it works with annotations
 name: Import Scrubber
-next_id: 14
+next_id: 15
