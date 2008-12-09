@@ -53,7 +53,8 @@ public class SourceFile
 
         while ((currentLine = buff.readLine()) != null) {
             // discard imports
-            if (currentLine.startsWith(ImportStatements.MARKER)) {
+            if (currentLine.startsWith(ImportStatements.MARKER)
+                    && (!currentLine.startsWith(ImportStatements.MARKER + " static")) ) {
                 passedFirstCommentHeader = true;
                 passedSecondCommentHeader = true;
                 continue;
